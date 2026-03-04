@@ -7,51 +7,52 @@
 **Asunto:** Solución para el desorden digital y gestión de documentos  
 
 ---
+# 🤖 File Sorter RPA - Sistema Avanzado de Gobernanza de Archivos
 
-## La idea principal
+![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python)
+![License](https://img.shields.io/badge/Licencia-Open%20Source-green)
+![UI](https://img.shields.io/badge/UI-CustomTkinter-purple)
+![Estado](https://img.shields.io/badge/Estado-Producción-success)
 
-El objetivo es que dejes de perder tiempo gestionando archivos a mano. Quiero crearte una herramienta sencilla (un script) que ponga orden automáticamente en tus directorios. Básicamente, que pases de tener todo mezclado en "Descargas" o en carpetas temporales, a tener un sistema que se organiza solo.
+## 📖 Descripción del Proyecto
 
-No se trata solo de "ordenar", sino de que tengas control real sobre tus datos sin que tengas que dedicarle ni un minuto.
+**File Sorter RPA** es una aplicación de escritorio desarrollada en Python orientada a la **Automatización Robótica de Procesos (RPA)** y el **Gobierno del Dato**. Su objetivo principal es resolver el problema del desorden digital en entornos corporativos y personales, automatizando la clasificación, el enrutamiento y la auditoría de miles de archivos en segundos.
 
-## El problema que veo hoy
+A diferencia de los scripts tradicionales, esta herramienta no solo clasifica por extensión, sino que permite definir **Reglas de Negocio Inteligentes** (clasificación por contexto/palabras clave), operar de forma invisible en segundo plano y garantizar la integridad de los datos mediante un sistema avanzado de **Rollback (Deshacer)** en tiempo real. Todo ello envuelto en una interfaz gráfica moderna inspirada en las *Human Interface Guidelines* de Apple (macOS/iOS Dark Mode).
 
-Siendo realistas, la forma en que gestionas los archivos ahora mismo te está frenando:
+---
 
-1.  **Pierdes tiempo:** Gastas minutos valiosos buscando ese informe o esa factura que no recuerdas dónde guardaste.
-2.  **Riesgo de errores:** Es fácil borrar cosas sin querer, machacar versiones o duplicar archivos cuando lo haces todo manual.
-3.  **Seguridad y Datos (GDPR):** Tener información sensible dispersa es un riesgo. Si necesitas buscar algo específico de urgencia, te cuesta encontrarlo.
-4.  **Mezcla de temas:** Los archivos personales, los del trabajo y los reportes técnicos acaban todos en el mismo sitio, y eso genera confusión.
+## ✨ Características Principales
 
-## Mi Solución: "File Sorter"
+* 🎯 **Interfaz Gráfica Moderna (UI/UX):** Diseño minimalista en Modo Oscuro con animaciones fluidas, barras de progreso y sistema de arrastrar y soltar (*Drag & Drop*) para una experiencia de usuario inmejorable.
+* 🧠 **Reglas Inteligentes (Custom Rules):** Crea reglas lógicas personalizadas. Ej: *"Mover todos los archivos .pdf que contengan la palabra 'Factura' a la carpeta 'Contabilidad'"*.
+* 🛡️ **Modo Vigía (Background Monitor):** La aplicación puede ocultarse de la pantalla y alojarse en la bandeja del sistema (System Tray). Vigilará la carpeta seleccionada 24/7 y organizará automáticamente cualquier archivo nuevo que entre en ella.
+* ⏪ **Rollback Selectivo (Deshacer):** Sistema de memoria basado en archivos JSON. Si te equivocas, abre el Panel de Deshacer, busca el archivo exacto con el buscador en tiempo real y devuélvelo a su origen con un clic.
+* 📅 **Clasificación Temporal:** Capacidad de generar subcarpetas dinámicas basadas en el Año y Mes de Creación o Modificación del archivo.
+* 🔍 **Modo Simulacro (Dry Run):** Permite testear el impacto de las reglas de negocio sin realizar ninguna modificación real en el disco duro.
+* ⛔ **Listas Negras (Exclusiones):** Protege archivos críticos indicando palabras clave que el algoritmo debe ignorar por completo.
+* 📝 **Trazabilidad y Logs:** Generación de archivos de auditoría (`log.txt`) con el registro exacto de cada movimiento para garantizar el cumplimiento normativo.
 
-Voy a desarrollarte un script en **Python**. He elegido este lenguaje porque es robusto, gratuito y funcionará en tu ordenador sin que tengas que pagar licencias extra.
+---
 
-### ¿Qué voy a programar exactamente?
+## 🏗️ Arquitectura del Software
 
-* **Vigilancia:** El script se quedará escuchando la carpeta que tú me digas.
-* **Clasificación:** En cuanto guardes un archivo, el sistema mirará qué es. ¿Es un PDF? Lo mueve a *Documentos*. ¿Un JPG? A *Imágenes*. ¿Un MP4? A *Video*.
-* **Auditoría (Clave para ti):** He diseñado el sistema para que escriba en un archivo de texto (`log.txt`) todo lo que hace. *"A las 10:00 moví tu Factura X a la carpeta Documentos"*. Así, siempre sabrás dónde ha ido a parar cada cosa.
-* **Conflictos:** Si el archivo ya existe, no te preocupes: no lo borrará. Lo renombrará automáticamente para que no pierdas nada.
+El código ha sido diseñado siguiendo principios de modularidad y responsabilidad única (*Separation of Concerns*):
 
-## ¿Por qué te interesa que haga esto?
+* `main.py`: Actúa como el **Front-end**. Gestiona la interfaz con CustomTkinter, los eventos del usuario, el Drag & Drop y lanza hilos de ejecución (*Threading*) para evitar que la UI se congele durante el procesamiento.
+* `file_manager.py`: Es el **Back-end** (Motor Lógico). Contiene los algoritmos de enrutamiento, la gestión del sistema de archivos (`shutil`, `os`), la lectura/escritura de los historiales JSON y la prevención de sobreescritura de datos.
+* `config.py`: Archivo de **Configuración**. Almacena los diccionarios base de categorías y extensiones, permitiendo escalar el software fácilmente sin alterar la lógica central.
 
-Más allá del orden visual, esto te aporta valor real:
+---
 
-1.  **Higiene Digital:** Empiezas a tratar tus datos con calidad. Será mucho más fácil para ti hacer limpieza en el futuro si todo está clasificado hoy.
-2.  **Tranquilidad:** Con el sistema de logs (el historial), tienes la seguridad de saber qué ha pasado con cada archivo.
-3.  **Base para el futuro:** Ahora te lo monto en local para que sea rápido y privado. Pero al dejarte la estructura ordenada, el día de mañana podrás subirlo a la nube o integrar herramientas más potentes sin esfuerzo.
+## 🚀 Instalación y Uso
 
-## Mi Plan de Trabajo
+### Prerrequisitos
+* Python 3.8 o superior instalado en el sistema.
 
-Es un proyecto rápido. Estos son los pasos que voy a seguir:
-
-1.  **Diseño:** (Definido en esta propuesta).
-2.  **Programación:** Escribiré el código en Python con la lógica de movimiento.
-3.  **Trazabilidad:** Integraré el sistema de registro para tu seguridad.
-4.  **Pruebas:** Lo probaré con archivos de test para asegurarme de que es 100% fiable antes de instalártelo.
-5.  **Entrega:** Te lo dejaré funcionando y te explicaré cómo usarlo en 2 minutos.
-
-## Conclusión
-
-Es una solución barata y muy efectiva. Con muy poco tiempo de desarrollo por mi parte, te quito un dolor de cabeza diario y evitamos que pierdas información importante.
+### Instalación Automática (Recomendado)
+El software cuenta con un script de auto-resolución de dependencias. 
+1. Clona este repositorio o descarga los archivos en una carpeta.
+2. Ejecuta el archivo principal:
+   ```bash
+   python main.py
