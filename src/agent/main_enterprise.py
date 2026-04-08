@@ -192,7 +192,7 @@ class EnterpriseApp(ctk.CTk, TkinterDnD.DnDWrapper):
         self.help_html = HtmlFrame(self.html_container, messages_enabled=False)
         self.help_html.pack(fill="both", expand=True, padx=2, pady=2)
         
-        self.cambiar_idioma_ayuda("Español")
+        self.cambiar_idioma_ayuda("English")
 
     def cerrar_ayuda(self):
         if hasattr(self, "help_wrapper") and self.help_wrapper.winfo_exists():
@@ -201,7 +201,7 @@ class EnterpriseApp(ctk.CTk, TkinterDnD.DnDWrapper):
 
     def cambiar_idioma_ayuda(self, lang):
         docs_path = os.path.join(os.path.dirname(__file__), "docs")
-        file_name = "help_en.html" if lang == "English" else "help_es.html"
+        file_name = "help_en.html"
         full_path = os.path.join(docs_path, file_name)
         if os.path.exists(full_path):
             with open(full_path, "r", encoding="utf-8") as f:

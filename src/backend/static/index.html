@@ -7,7 +7,7 @@
 </head>
 
 <body class="bg-slate-900 text-white p-8">
-    <h1 class="text-3xl font-bold mb-6">🚀 Monitor de Agentes Enterprise</h1>
+    <h1 class="text-3xl font-bold mb-6">🚀 Enterprise Agent Monitor</h1>
     <div id="logs" class="grid gap-4">
     </div>
 
@@ -20,8 +20,8 @@
             const logEntry = document.createElement('div');
             logEntry.className = "bg-slate-800 p-4 rounded-lg border-l-4 border-green-500";
             logEntry.innerHTML = `
-                <p><strong>Archivo:</strong> ${data.filename}</p>
-                <p class="text-sm text-slate-400">Movido a: ${data.dest_path}</p>
+                <p><strong>File:</strong> ${data.filename}</p>
+                <p class="text-sm text-slate-400">Moved to: ${data.dest_path}</p>
             `;
             document.getElementById('logs').prepend(logEntry);
         };

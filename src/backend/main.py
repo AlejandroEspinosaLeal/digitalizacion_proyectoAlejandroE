@@ -114,13 +114,13 @@ def send_verification_email(to_email: str, code: str, is_recovery: bool = False)
     date_str = now.strftime("%d-%m-%Y")
     
     if is_recovery:
-        subject = f"restablecer contrasena dia {date_str}"
-        title = "Recuperación de Contraseña"
-        message_body = "Has solicitado restablecer tu contraseña. Utiliza el siguiente código de 6 dígitos para continuar. Si no fuiste tú, puedes ignorar este mensaje de seguridad."
+        subject = f"Password reset {date_str}"
+        title = "Password Recovery"
+        message_body = "You requested a password reset. Use the following 6-digit code. If you didn't request this, ignore this security message."
     else:
-        subject = "Código de Verificación - File Sorter"
-        title = "Iniciando Sesión"
-        message_body = "Se ha detectado un intento de inicio de sesión. Utiliza el siguiente código de 6 dígitos para acceder de forma segura a tu cuenta."
+        subject = "Verification Code - File Sorter"
+        title = "Logging In"
+        message_body = "A login attempt was detected. Use the following 6-digit code to securely access your account."
 
     template = templates.get_template("email_verification.html")
     html_content = template.render({"title": title, "message_body": message_body, "code": code})
@@ -130,7 +130,7 @@ def send_verification_email(to_email: str, code: str, is_recovery: bool = False)
         msg['Subject'] = subject
         msg['From'] = settings.SMTP_USER
         msg['To'] = to_email
-        msg.set_content(f"Tu código es: {code}. Por favor activa la vista HTML para ver este mensaje.")
+        msg.set_content(f"Your code is: {code}. Please activate HTML view to see this message.")
         msg.add_alternative(html_content, subtype='html')
 
         server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -138,9 +138,9 @@ def send_verification_email(to_email: str, code: str, is_recovery: bool = False)
         server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
         server.send_message(msg)
         server.quit()
-        logger.info(f"Correo HTML de verificación enviado con éxito a {to_email}")
+        logger.info(f"Verification HTML email successfully sent to {to_email}")
     except Exception as e:
-        logger.error(f"Error enviando correo SMTP a {to_email}: {e}")
+        logger.error(f"Error sending SMTP email to {to_email}: {e}")
 
 @app.post("/auth/token")
 def login(user_credentials: User, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
@@ -247,7 +247,7 @@ def send_report_email_task(to_email: str, device_id: str, folder: str, logs: Lis
         
     now = datetime.now()
     date_str = now.strftime("%d-%m-%Y")
-    subject = f"log dia {date_str}"
+    subject = f"Log day {date_str}"
     
     template = templates.get_template("email_report.html")
     html_content = template.render({"device_id": device_id, "folder": folder, "logs": logs})
@@ -257,7 +257,7 @@ def send_report_email_task(to_email: str, device_id: str, folder: str, logs: Lis
         msg['Subject'] = subject
         msg['From'] = settings.SMTP_USER
         msg['To'] = to_email
-        msg.set_content("Por favor, activa la vista HTML para ver este reporte de organización.")
+        msg.set_content("Please activate HTML view to see this organization report.")
         msg.add_alternative(html_content, subtype='html')
 
         server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -265,26 +265,26 @@ def send_report_email_task(to_email: str, device_id: str, folder: str, logs: Lis
         server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
         server.send_message(msg)
         server.quit()
-        logger.info(f"Reporte diario enviado a {to_email}")
+        logger.info(f"Daily report sent to {to_email}")
     except Exception as e:
-        logger.error(f"Error enviando reporte diario a {to_email}: {e}")
+        logger.error(f"Error sending daily report to {to_email}: {e}")
 
 @app.post("/devices/log/report")
 def receive_log_report(req_data: LogReportRequest, request: Request, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     auth_header = request.headers.get("Authorization")
     if not auth_header or not auth_header.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="No autorizado")
+        raise HTTPException(status_code=401, detail="Unauthorized")
     
     token = auth_header.split(" ")[1]
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         email = payload.get("sub")
     except JWTError:
-        raise HTTPException(status_code=401, detail="Token inválido")
+        raise HTTPException(status_code=401, detail="Invalid token")
         
     user = db.exec(select(User).where(User.email == email)).first()
     if not user:
-        raise HTTPException(status_code=401, detail="Usuario no encontrado")
+        raise HTTPException(status_code=401, detail="User not found")
 
     background_tasks.add_task(send_report_email_task, user.email, req_data.device_id, req_data.folder, req_data.logs)
         
