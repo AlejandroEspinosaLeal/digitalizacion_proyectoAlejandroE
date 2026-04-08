@@ -111,6 +111,18 @@ python setup_and_run.py
 2. If using Docker, click **Levantar Base de Datos (Docker)** first.
 3. Finally, launch both servers using **Launch Full System Node**.
 
+### Integration Examples (Fulfilling Criterion 6i)
+
+To truly leverage the interoperability of this system with external environments (like an ERP or CRM), the backend exposes a live REST API that can be consumed by external platforms.
+
+**Example: Syncing Device Rules Programmatically**
+```bash
+curl -X 'GET' \
+  'http://localhost:8000/api/v1/devices/sync/PC-LOCAL-01' \
+  -H 'accept: application/json'
+```
+This enables third-party enterprise planners to ingest rule lists without interacting with the Desktop UI at all.
+
 ## Customizability and Ideas for Extensions
 
 The architecture of 📁⚙️ File Sorter Enterprise is designed with extensibility and future digital transformation growth at its core.

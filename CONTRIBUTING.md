@@ -25,4 +25,12 @@ First off, thank you for considering contributing to File Sorter Enterprise! It'
 - **English Language**: All code documentation, Pull Request messages, and commit logs MUST be in English.
 - **Docstrings**: We use the Sphinx/Google docstring standard for auto-generating docs.
 
+## Strategic Contribution Goals
+
+To align community efforts with our enterprise strategy, we actively request contributions in the following domains:
+
+- **Future Needs & Scalability (Criterion 6e):** We are looking for AI developers to integrate local LLMs into the Python agent to classify files by *content* rather than just extension.
+- **System Integrations (Criterion 6i):** We invite data engineers to develop Webhooks interacting with our OpenAPI (`/docs`) in order to connect *File Sorter* telemetry directly to SAP, Microsoft Dynamics, or Salesforce.
+- **Human Resources & Training (Criterion 6k):** To collaborate, you will need a strong background in **Asynchronous Python (FastAPI)** and **Event-Driven UI (CustomTkinter)**. We have prepared an explicit html-based reference accessible in our `docs/` folder to serve as the initial onboarding training material for new developers.
+
 Once again, thank you for making this project better!

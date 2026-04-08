@@ -28,7 +28,7 @@ By utilizing *File Sorter Enterprise*, operations shift from being manual and er
 Digitalized areas (e.g., the financial department using the File Sorter) automatically generate clean folder structures and reports (via automated system emails). Non-digitalized areas, or external stakeholders (such as auditors), can access these organized folders and read the emails without needing to directly interact with the underlying technology.
 
 **What solutions or improvements would you propose to integrate these areas?**
-I would propose maintaining and expanding the **automated email reporting** functionality of *File Sorter Enterprise*. This ensures that personnel who do not use the application to process inputs are still reliably informed about what files were moved and where.
+To achieve maximum operative cohesion, I propose expanding the **automated email reporting** functionality so that anytime a financial invoice is detected and sorted, a specific payload is triggered to the Marketing/Communications team. This directly bridges the gap between the area executing the digitalization (Finance) and the area relying on non-digitalized input reviews (Communications), completely avoiding bottlenecks.
 
 ## Criterion 6e) Present and Future Needs
 **What current needs of the company does your software solve?**
@@ -67,4 +67,6 @@ Absolutely. A technical overview and changelog has been documented under the `wi
 
 ## Criterion 6k) Human Resources Suitability
 **What key skills are required and how is training planned?**
-Staff trained in Python asynchronous architectures and Agile methodologies are required. Regarding training strategy, the codebase has been completely documented according to the Sphinx/Google standard, and a script generates an HTML technical documentation reference portal. This allows for rapid, autonomous onboarding for any new developer joining the team.
+Staff trained in specific technical skills are necessary: **Python Asynchronous programming (FastAPI)**, **Relational Database Management (PostgreSQL/SQLModel)**, and **Event-Driven Architectures (WebSockets)**. 
+
+To guarantee future viability and continuous training of new developers (onboarding), the entire codebase employs Sphinx/Google standard docstrings. Furthermore, the CI/CD pipeline generated a completely offline HTML Documentation Portal (`pdoc`), serving as an interactive training sandbox where junior developers can study the system's interoperability before making code changes.
