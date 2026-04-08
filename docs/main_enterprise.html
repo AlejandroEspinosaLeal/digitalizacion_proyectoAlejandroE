@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>main_enterprise API documentation</title>
+<meta name="description" content="Enterprise App Main Module …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>main_enterprise</code></h1>
+</header>
+<section id="section-intro">
+<p>Enterprise App Main Module.</p>
+<p>This module initializes the Main App Orchestrator. Bootstraps AppState, views, and layout routing
+using CustomTkinter and TkinterDnD for drag and drop features.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="main_enterprise.EnterpriseApp"><code class="flex name class">
+<span>class <span class="ident">EnterpriseApp</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class EnterpriseApp(ctk.CTk, TkinterDnD.DnDWrapper):
+    &#34;&#34;&#34;Main App Orchestrator. Bootstraps AppState, views, and layout routing.&#34;&#34;&#34;
+    
+    def __init__(self):
+        super().__init__()
+        self.TkdndVersion = TkinterDnD._require(self)
+        self.title(&#34;File Governance System&#34;)
+        self.geometry(&#34;1100x850&#34;)
+        
+        ctk.set_appearance_mode(&#34;dark&#34;)
+        self.configure(fg_color=Theme.BG)
+        
+        self.app_state = AppState()
+        self.protocol(&#34;WM_DELETE_WINDOW&#34;, self.on_close)
+        
+        # Load Initial Authorization View
+        self.auth_wrapper = ctk.CTkFrame(self, fg_color=&#34;transparent&#34;)
+        self.auth_wrapper.pack(expand=True, fill=&#34;both&#34;)
+        self.auth_view = AuthView(self.auth_wrapper, self.load_main_dashboard)
+        self.auth_view.pack(expand=True, fill=&#34;both&#34;)
+
+    def load_main_dashboard(self):
+        &#34;&#34;&#34;Cleanly destroys auth wrapper and bootstraps Main Layout&#34;&#34;&#34;
+        self.auth_wrapper.destroy()
+        
+        self.manager = EnterpriseFileManager(self.app_state.device_id, self.app_state.api_url, self.app_state.token, self.app_state.user_email)
+        self.conectar_websocket()
+        
+        # Layout Configuration
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=1)
+        
+        self.sidebar_expanded = True
+        self.sidebar_width = 240
+        self.sidebar_min_width = 75
+        self.is_animating = False
+        
+        # Transparent placeholder to reserve space in the layout engine
+        self.sidebar_placeholder = ctk.CTkFrame(self, width=self.sidebar_width, fg_color=&#34;transparent&#34;, corner_radius=0)
+        self.sidebar_placeholder.grid(row=0, column=0, sticky=&#34;nsew&#34;)
+        
+        # The content frame sits in column 1, shaped by the placeholder
+        self.content_frame = ctk.CTkFrame(self, fg_color=&#34;transparent&#34;)
+        self.content_frame.grid(row=0, column=1, sticky=&#34;nsew&#34;)
+        
+        # The actual sidebar absolute-places over the placeholder bounds
+        self.sidebar = ctk.CTkFrame(self, width=self.sidebar_width, corner_radius=0, fg_color=Theme.CARD)
+        self.sidebar.place(x=0, y=0, relheight=1)
+        self.sidebar.grid_propagate(False)
+        self.sidebar.grid_rowconfigure(5, weight=1)
+        self.sidebar.grid_columnconfigure(0, weight=1)
+        
+        self.sidebar_header = ctk.CTkFrame(self.sidebar, fg_color=&#34;transparent&#34;)
+        self.sidebar_header.grid(row=0, column=0, sticky=&#34;ew&#34;, pady=(25, 30))
+        self.sidebar_header.grid_columnconfigure(0, weight=1)
+        
+        try:
+            # Replicating original behavior with an image wrapper
+            logo_img = ctk.CTkImage(light_image=Image.open(&#34;assets/logo.png&#34;), dark_image=Image.open(&#34;assets/logo.png&#34;), size=(24, 24))
+            self.lbl_logo = ctk.CTkLabel(self.sidebar_header, text=&#34; File Sorter&#34;, image=logo_img, compound=&#34;left&#34;, font=ctk.CTkFont(size=20, weight=&#34;bold&#34;), text_color=Theme.PRIMARY)
+        except Exception:
+            self.lbl_logo = ctk.CTkLabel(self.sidebar_header, text=&#34; File Sorter&#34;, font=ctk.CTkFont(size=20, weight=&#34;bold&#34;), text_color=Theme.PRIMARY)
+        self.lbl_logo.grid(row=0, column=0, sticky=&#34;w&#34;, padx=(15, 0))
+        
+        self.btn_toggle = ctk.CTkButton(self.sidebar_header, text=&#34;☰&#34;, width=35, height=35, fg_color=&#34;transparent&#34;, hover_color=Theme.BORDER, text_color=Theme.TEXT, font=ctk.CTkFont(size=18), command=self.toggle_sidebar)
+        self.btn_toggle.grid(row=0, column=1, sticky=&#34;e&#34;, padx=(0, 10))
+        
+        self.btn_nav_home = ctk.CTkButton(self.sidebar, text=&#34;  🏠  Home / Organize&#34;, font=ctk.CTkFont(size=14, weight=&#34;bold&#34;), fg_color=&#34;transparent&#34;, text_color=Theme.TEXT, hover_color=Theme.BORDER, anchor=&#34;w&#34;, height=45, corner_radius=12, command=lambda: self.select_page(&#34;home&#34;))
+        self.btn_nav_home.grid(row=1, column=0, padx=15, pady=10, sticky=&#34;ew&#34;)
+        
+        self.btn_nav_dash = ctk.CTkButton(self.sidebar, text=&#34;  📊  Metrics Dashboard&#34;, font=ctk.CTkFont(size=14, weight=&#34;bold&#34;), fg_color=&#34;transparent&#34;, text_color=Theme.TEXT, hover_color=Theme.BORDER, anchor=&#34;w&#34;, height=45, corner_radius=12, command=lambda: self.select_page(&#34;dash&#34;))
+        self.btn_nav_dash.grid(row=2, column=0, padx=15, pady=10, sticky=&#34;ew&#34;)
+        
+        self.btn_nav_rules = ctk.CTkButton(self.sidebar, text=&#34;  ⚙️  Rules Engine&#34;, font=ctk.CTkFont(size=14, weight=&#34;bold&#34;), fg_color=&#34;transparent&#34;, text_color=Theme.TEXT, hover_color=Theme.BORDER, anchor=&#34;w&#34;, height=45, corner_radius=12, command=lambda: self.select_page(&#34;rules&#34;))
+        self.btn_nav_rules.grid(row=3, column=0, padx=15, pady=10, sticky=&#34;ew&#34;)
+        
+        self.btn_nav_help = ctk.CTkButton(self.sidebar, text=&#34;  ❔  Documentation&#34;, font=ctk.CTkFont(size=13), fg_color=&#34;transparent&#34;, text_color=Theme.MUTED, hover_color=Theme.BORDER, anchor=&#34;w&#34;, height=45, corner_radius=12, command=self.mostrar_ayuda)
+        self.btn_nav_help.grid(row=5, column=0, padx=15, pady=20, sticky=&#34;sew&#34;)
+
+        # Init Views directly into the layout content zone
+        self.page_home = HomeView(self.content_frame, self.manager)
+        self.page_dash = DashboardView(self.content_frame, self.manager)
+        self.page_rules = RulesView(self.content_frame, self.manager)
+        
+        self.select_page(&#34;home&#34;)
+
+    def toggle_sidebar(self):
+        if getattr(self, &#34;is_animating&#34;, False): return
+        self.is_animating = True
+        
+        step = 25
+        if self.sidebar_expanded:
+            self.sidebar_expanded = False
+            self.lbl_logo.grid_forget()
+            self.btn_nav_home.configure(text=&#34;  🏠  &#34;)
+            self.btn_nav_dash.configure(text=&#34;  📊  &#34;)
+            self.btn_nav_rules.configure(text=&#34;  ⚙️  &#34;)
+            self.btn_nav_help.configure(text=&#34;  ❔  &#34;)
+            
+            self.sidebar_placeholder.configure(width=self.sidebar_min_width)
+            self.update_idletasks()
+            self._animate_sidebar_place(self.sidebar_width, self.sidebar_min_width, -step)
+        else:
+            self.sidebar_expanded = True
+            self.lbl_logo.grid(row=0, column=0, sticky=&#34;w&#34;, padx=(15, 0))
+            self._animate_sidebar_place(self.sidebar_min_width, self.sidebar_width, step)
+
+    def _animate_sidebar_place(self, start_w, end_w, step):
+        current_w = start_w
+        while (step &lt; 0 and current_w &gt; end_w) or (step &gt; 0 and current_w &lt; end_w):
+            current_w += step
+            if step &lt; 0 and current_w &lt; end_w: current_w = end_w
+            if step &gt; 0 and current_w &gt; end_w: current_w = end_w
+            
+            self.sidebar.configure(width=current_w)
+            self.update()
+            
+        if self.sidebar_expanded:
+            self.sidebar_placeholder.configure(width=self.sidebar_width)
+            self.btn_nav_home.configure(text=&#34;  🏠  Home / Organize&#34;)
+            self.btn_nav_dash.configure(text=&#34;  📊  Metrics Dashboard&#34;)
+            self.btn_nav_rules.configure(text=&#34;  ⚙️  Rules Engine&#34;)
+            self.btn_nav_help.configure(text=&#34;  ❔  Documentation&#34;)
+            
+        self.is_animating = False
+
+    def select_page(self, name):
+        &#34;&#34;&#34;Routing multiplexer to switch active visual views&#34;&#34;&#34;
+        self.btn_nav_home.configure(fg_color=Theme.PRIMARY if name==&#34;home&#34; else &#34;transparent&#34;)
+        self.btn_nav_dash.configure(fg_color=Theme.PRIMARY if name==&#34;dash&#34; else &#34;transparent&#34;)
+        self.btn_nav_rules.configure(fg_color=Theme.PRIMARY if name==&#34;rules&#34; else &#34;transparent&#34;)
+        
+        if hasattr(self, &#34;help_wrapper&#34;) and self.help_wrapper.winfo_exists():
+            self.help_wrapper.destroy()
+            self.content_frame.grid(row=0, column=1, sticky=&#34;nsew&#34;)
+
+        self.page_home.pack_forget()
+        self.page_dash.pack_forget()
+        self.page_rules.pack_forget()
+
+        if name == &#34;home&#34;: self.page_home.pack(fill=&#34;both&#34;, expand=True)
+        elif name == &#34;dash&#34;: self.page_dash.actualizar(); self.page_dash.pack(fill=&#34;both&#34;, expand=True)
+        elif name == &#34;rules&#34;: self.page_rules.actualizar(); self.page_rules.pack(fill=&#34;both&#34;, expand=True)
+
+    def mostrar_ayuda(self):
+        &#34;&#34;&#34;Renders the decoupled HTML documentation files into the TkinterWeb iframe.&#34;&#34;&#34;
+        self.content_frame.grid_forget()
+        if hasattr(self, &#34;help_wrapper&#34;) and self.help_wrapper.winfo_exists(): return
+        self.help_wrapper = ctk.CTkFrame(self, fg_color=&#34;transparent&#34;)
+        self.help_wrapper.grid(row=0, column=1, sticky=&#34;nsew&#34;, padx=40, pady=40)
+        
+        top_bar = ctk.CTkFrame(self.help_wrapper, fg_color=&#34;transparent&#34;)
+        top_bar.pack(fill=&#34;x&#34;, pady=(0, 20))
+        
+        btn_back = ctk.CTkButton(top_bar, text=&#34;← Go Back&#34;, width=100, height=36, corner_radius=8, fg_color=Theme.CARD, hover_color=Theme.BORDER, text_color=Theme.TEXT, command=self.cerrar_ayuda)
+        btn_back.pack(side=&#34;left&#34;)
+        
+        self.seg_lang = ctk.CTkSegmentedButton(top_bar, values=[&#34;Español&#34;, &#34;English&#34;], command=self.cambiar_idioma_ayuda, selected_color=Theme.PRIMARY, selected_hover_color=Theme.PRIMARY_HOVER, unselected_color=Theme.CARD, unselected_hover_color=Theme.BORDER)
+        self.seg_lang.pack(side=&#34;right&#34;)
+        self.seg_lang.set(&#34;Español&#34;)
+        
+        import tkinter as tk
+        self.html_container = tk.Frame(self.help_wrapper, bg=Theme.CARD, highlightbackground=Theme.BORDER, highlightthickness=1)
+        self.html_container.pack(fill=&#34;both&#34;, expand=True, pady=(0, 20))
+        
+        self.help_html = HtmlFrame(self.html_container, messages_enabled=False)
+        self.help_html.pack(fill=&#34;both&#34;, expand=True, padx=2, pady=2)
+        
+        self.cambiar_idioma_ayuda(&#34;Español&#34;)
+
+    def cerrar_ayuda(self):
+        if hasattr(self, &#34;help_wrapper&#34;) and self.help_wrapper.winfo_exists():
+            self.help_wrapper.destroy()
+        self.content_frame.grid(row=0, column=1, sticky=&#34;nsew&#34;)
+
+    def cambiar_idioma_ayuda(self, lang):
+        docs_path = os.path.join(os.path.dirname(__file__), &#34;docs&#34;)
+        file_name = &#34;help_en.html&#34; if lang == &#34;English&#34; else &#34;help_es.html&#34;
+        full_path = os.path.join(docs_path, file_name)
+        if os.path.exists(full_path):
+            with open(full_path, &#34;r&#34;, encoding=&#34;utf-8&#34;) as f:
+                self.help_html.load_html(f.read())
+        else:
+            self.help_html.load_html(&#34;&lt;h1&gt;Document not found&lt;/h1&gt;&#34;)
+
+    def conectar_websocket(self):
+        def run():
+            ws_url = self.app_state.api_url.replace(&#34;http://&#34;, &#34;ws://&#34;).replace(&#34;https://&#34;, &#34;wss://&#34;) + f&#34;/ws/events/{self.app_state.device_id}&#34;
+            try:
+                self.ws = websocket.WebSocketApp(ws_url, on_message=lambda ws, m: print(f&#34;Cloud: {m}&#34;))
+                self.manager.ws = self.ws
+                self.ws.run_forever()
+            except Exception as e: print(e)
+        threading.Thread(target=run, daemon=True).start()
+
+    def on_close(self):
+        &#34;&#34;&#34;Graciously shuts down background hooks before native exit.&#34;&#34;&#34;
+        if hasattr(self, &#39;page_home&#39;) and hasattr(self.page_home, &#39;observer&#39;):
+            try:
+                self.page_home.observer.stop()
+                self.page_home.observer.join()
+            except: pass
+            
+        if self.app_state.backend_pid:
+            try:
+                subprocess.run(f&#34;taskkill /PID {self.app_state.backend_pid} /T /F&#34;, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except: pass
+            
+        self.destroy()
+        sys.exit(0)</code></pre>
+</details>
+<div class="desc"><p>Main App Orchestrator. Bootstraps AppState, views, and layout routing.</p>
+<p>Return a new top level widget on screen SCREENNAME. A new Tcl interpreter will
+be created. BASENAME will be used for the identification of the profile file (see
+readprofile).
+It is constructed from sys.argv[0] without extensions if None is given. CLASSNAME
+is the name of the widget class.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>customtkinter.windows.ctk_tk.CTk</li>
+<li>tkinter.Tk</li>
+<li>tkinter.Misc</li>
+<li>tkinter.Wm</li>
+<li>customtkinter.windows.widgets.appearance_mode.appearance_mode_base_class.CTkAppearanceModeBaseClass</li>
+<li>customtkinter.windows.widgets.scaling.scaling_base_class.CTkScalingBaseClass</li>
+<li>tkinterdnd2.TkinterDnD.DnDWrapper</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="main_enterprise.EnterpriseApp.cambiar_idioma_ayuda"><code class="name flex">
+<span>def <span class="ident">cambiar_idioma_ayuda</span></span>(<span>self, lang)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cambiar_idioma_ayuda(self, lang):
+    docs_path = os.path.join(os.path.dirname(__file__), &#34;docs&#34;)
+    file_name = &#34;help_en.html&#34; if lang == &#34;English&#34; else &#34;help_es.html&#34;
+    full_path = os.path.join(docs_path, file_name)
+    if os.path.exists(full_path):
+        with open(full_path, &#34;r&#34;, encoding=&#34;utf-8&#34;) as f:
+            self.help_html.load_html(f.read())
+    else:
+        self.help_html.load_html(&#34;&lt;h1&gt;Document not found&lt;/h1&gt;&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="main_enterprise.EnterpriseApp.cerrar_ayuda"><code class="name flex">
+<span>def <span class="ident">cerrar_ayuda</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cerrar_ayuda(self):
+    if hasattr(self, &#34;help_wrapper&#34;) and self.help_wrapper.winfo_exists():
+        self.help_wrapper.destroy()
+    self.content_frame.grid(row=0, column=1, sticky=&#34;nsew&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="main_enterprise.EnterpriseApp.conectar_websocket"><code class="name flex">
+<span>def <span class="ident">conectar_websocket</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def conectar_websocket(self):
+    def run():
+        ws_url = self.app_state.api_url.replace(&#34;http://&#34;, &#34;ws://&#34;).replace(&#34;https://&#34;, &#34;wss://&#34;) + f&#34;/ws/events/{self.app_state.device_id}&#34;
+        try:
+            self.ws = websocket.WebSocketApp(ws_url, on_message=lambda ws, m: print(f&#34;Cloud: {m}&#34;))
+            self.manager.ws = self.ws
+            self.ws.run_forever()
+        except Exception as e: print(e)
+    threading.Thread(target=run, daemon=True).start()</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="main_enterprise.EnterpriseApp.load_main_dashboard"><code class="name flex">
+<span>def <span class="ident">load_main_dashboard</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_main_dashboard(self):
+    &#34;&#34;&#34;Cleanly destroys auth wrapper and bootstraps Main Layout&#34;&#34;&#34;
+    self.auth_wrapper.destroy()
+    
+    self.manager = EnterpriseFileManager(self.app_state.device_id, self.app_state.api_url, self.app_state.token, self.app_state.user_email)
+    self.conectar_websocket()
+    
+    # Layout Configuration
+    self.grid_rowconfigure(0, weight=1)
+    self.grid_columnconfigure(1, weight=1)
+    
+    self.sidebar_expanded = True
+    self.sidebar_width = 240
+    self.sidebar_min_width = 75
+    self.is_animating = False
+    
+    # Transparent placeholder to reserve space in the layout engine
+    self.sidebar_placeholder = ctk.CTkFrame(self, width=self.sidebar_width, fg_color=&#34;transparent&#34;, corner_radius=0)
+    self.sidebar_placeholder.grid(row=0, column=0, sticky=&#34;nsew&#34;)
+    
+    # The content frame sits in column 1, shaped by the placeholder
+    self.content_frame = ctk.CTkFrame(self, fg_color=&#34;transparent&#34;)
+    self.content_frame.grid(row=0, column=1, sticky=&#34;nsew&#34;)
+    
+    # The actual sidebar absolute-places over the placeholder bounds
+    self.sidebar = ctk.CTkFrame(self, width=self.sidebar_width, corner_radius=0, fg_color=Theme.CARD)
+    self.sidebar.place(x=0, y=0, relheight=1)
+    self.sidebar.grid_propagate(False)
+    self.sidebar.grid_rowconfigure(5, weight=1)
+    self.sidebar.grid_columnconfigure(0, weight=1)
+    
+    self.sidebar_header = ctk.CTkFrame(self.sidebar, fg_color=&#34;transparent&#34;)
+    self.sidebar_header.grid(row=0, column=0, sticky=&#34;ew&#34;, pady=(25, 30))
+    self.sidebar_header.grid_columnconfigure(0, weight=1)
+    
+    try:
+        # Replicating original behavior with an image wrapper
+        logo_img = ctk.CTkImage(light_image=Image.open(&#34;assets/logo.png&#34;), dark_image=Image.open(&#34;assets/logo.png&#34;), size=(24, 24))
+        self.lbl_logo = ctk.CTkLabel(self.sidebar_header, text=&#34; File Sorter&#34;, image=logo_img, compound=&#34;left&#34;, font=ctk.CTkFont(size=20, weight=&#34;bold&#34;), text_color=Theme.PRIMARY)
+    except Exception:
+        self.lbl_logo = ctk.CTkLabel(self.sidebar_header, text=&#34; File Sorter&#34;, font=ctk.CTkFont(size=20, weight=&#34;bold&#34;), text_color=Theme.PRIMARY)
+    self.lbl_logo.grid(row=0, column=0, sticky=&#34;w&#34;, padx=(15, 0))
+    
+    self.btn_toggle = ctk.CTkButton(self.sidebar_header, text=&#34;☰&#34;, width=35, height=35, fg_color=&#34;transparent&#34;, hover_color=Theme.BORDER, text_color=Theme.TEXT, font=ctk.CTkFont(size=18), command=self.toggle_sidebar)
+    self.btn_toggle.grid(row=0, column=1, sticky=&#34;e&#34;, padx=(0, 10))
+    
+    self.btn_nav_home = ctk.CTkButton(self.sidebar, text=&#34;  🏠  Home / Organize&#34;, font=ctk.CTkFont(size=14, weight=&#34;bold&#34;), fg_color=&#34;transparent&#34;, text_color=Theme.TEXT, hover_color=Theme.BORDER, anchor=&#34;w&#34;, height=45, corner_radius=12, command=lambda: self.select_page(&#34;home&#34;))
+    self.btn_nav_home.grid(row=1, column=0, padx=15, pady=10, sticky=&#34;ew&#34;)
+    
+    self.btn_nav_dash = ctk.CTkButton(self.sidebar, text=&#34;  📊  Metrics Dashboard&#34;, font=ctk.CTkFont(size=14, weight=&#34;bold&#34;), fg_color=&#34;transparent&#34;, text_color=Theme.TEXT, hover_color=Theme.BORDER, anchor=&#34;w&#34;, height=45, corner_radius=12, command=lambda: self.select_page(&#34;dash&#34;))
+    self.btn_nav_dash.grid(row=2, column=0, padx=15, pady=10, sticky=&#34;ew&#34;)
+    
+    self.btn_nav_rules = ctk.CTkButton(self.sidebar, text=&#34;  ⚙️  Rules Engine&#34;, font=ctk.CTkFont(size=14, weight=&#34;bold&#34;), fg_color=&#34;transparent&#34;, text_color=Theme.TEXT, hover_color=Theme.BORDER, anchor=&#34;w&#34;, height=45, corner_radius=12, command=lambda: self.select_page(&#34;rules&#34;))
+    self.btn_nav_rules.grid(row=3, column=0, padx=15, pady=10, sticky=&#34;ew&#34;)
+    
+    self.btn_nav_help = ctk.CTkButton(self.sidebar, text=&#34;  ❔  Documentation&#34;, font=ctk.CTkFont(size=13), fg_color=&#34;transparent&#34;, text_color=Theme.MUTED, hover_color=Theme.BORDER, anchor=&#34;w&#34;, height=45, corner_radius=12, command=self.mostrar_ayuda)
+    self.btn_nav_help.grid(row=5, column=0, padx=15, pady=20, sticky=&#34;sew&#34;)
+
+    # Init Views directly into the layout content zone
+    self.page_home = HomeView(self.content_frame, self.manager)
+    self.page_dash = DashboardView(self.content_frame, self.manager)
+    self.page_rules = RulesView(self.content_frame, self.manager)
+    
+    self.select_page(&#34;home&#34;)</code></pre>
+</details>
+<div class="desc"><p>Cleanly destroys auth wrapper and bootstraps Main Layout</p></div>
+</dd>
+<dt id="main_enterprise.EnterpriseApp.mostrar_ayuda"><code class="name flex">
+<span>def <span class="ident">mostrar_ayuda</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mostrar_ayuda(self):
+    &#34;&#34;&#34;Renders the decoupled HTML documentation files into the TkinterWeb iframe.&#34;&#34;&#34;
+    self.content_frame.grid_forget()
+    if hasattr(self, &#34;help_wrapper&#34;) and self.help_wrapper.winfo_exists(): return
+    self.help_wrapper = ctk.CTkFrame(self, fg_color=&#34;transparent&#34;)
+    self.help_wrapper.grid(row=0, column=1, sticky=&#34;nsew&#34;, padx=40, pady=40)
+    
+    top_bar = ctk.CTkFrame(self.help_wrapper, fg_color=&#34;transparent&#34;)
+    top_bar.pack(fill=&#34;x&#34;, pady=(0, 20))
+    
+    btn_back = ctk.CTkButton(top_bar, text=&#34;← Go Back&#34;, width=100, height=36, corner_radius=8, fg_color=Theme.CARD, hover_color=Theme.BORDER, text_color=Theme.TEXT, command=self.cerrar_ayuda)
+    btn_back.pack(side=&#34;left&#34;)
+    
+    self.seg_lang = ctk.CTkSegmentedButton(top_bar, values=[&#34;Español&#34;, &#34;English&#34;], command=self.cambiar_idioma_ayuda, selected_color=Theme.PRIMARY, selected_hover_color=Theme.PRIMARY_HOVER, unselected_color=Theme.CARD, unselected_hover_color=Theme.BORDER)
+    self.seg_lang.pack(side=&#34;right&#34;)
+    self.seg_lang.set(&#34;Español&#34;)
+    
+    import tkinter as tk
+    self.html_container = tk.Frame(self.help_wrapper, bg=Theme.CARD, highlightbackground=Theme.BORDER, highlightthickness=1)
+    self.html_container.pack(fill=&#34;both&#34;, expand=True, pady=(0, 20))
+    
+    self.help_html = HtmlFrame(self.html_container, messages_enabled=False)
+    self.help_html.pack(fill=&#34;both&#34;, expand=True, padx=2, pady=2)
+    
+    self.cambiar_idioma_ayuda(&#34;Español&#34;)</code></pre>
+</details>
+<div class="desc"><p>Renders the decoupled HTML documentation files into the TkinterWeb iframe.</p></div>
+</dd>
+<dt id="main_enterprise.EnterpriseApp.on_close"><code class="name flex">
+<span>def <span class="ident">on_close</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def on_close(self):
+    &#34;&#34;&#34;Graciously shuts down background hooks before native exit.&#34;&#34;&#34;
+    if hasattr(self, &#39;page_home&#39;) and hasattr(self.page_home, &#39;observer&#39;):
+        try:
+            self.page_home.observer.stop()
+            self.page_home.observer.join()
+        except: pass
+        
+    if self.app_state.backend_pid:
+        try:
+            subprocess.run(f&#34;taskkill /PID {self.app_state.backend_pid} /T /F&#34;, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except: pass
+        
+    self.destroy()
+    sys.exit(0)</code></pre>
+</details>
+<div class="desc"><p>Graciously shuts down background hooks before native exit.</p></div>
+</dd>
+<dt id="main_enterprise.EnterpriseApp.select_page"><code class="name flex">
+<span>def <span class="ident">select_page</span></span>(<span>self, name)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def select_page(self, name):
+    &#34;&#34;&#34;Routing multiplexer to switch active visual views&#34;&#34;&#34;
+    self.btn_nav_home.configure(fg_color=Theme.PRIMARY if name==&#34;home&#34; else &#34;transparent&#34;)
+    self.btn_nav_dash.configure(fg_color=Theme.PRIMARY if name==&#34;dash&#34; else &#34;transparent&#34;)
+    self.btn_nav_rules.configure(fg_color=Theme.PRIMARY if name==&#34;rules&#34; else &#34;transparent&#34;)
+    
+    if hasattr(self, &#34;help_wrapper&#34;) and self.help_wrapper.winfo_exists():
+        self.help_wrapper.destroy()
+        self.content_frame.grid(row=0, column=1, sticky=&#34;nsew&#34;)
+
+    self.page_home.pack_forget()
+    self.page_dash.pack_forget()
+    self.page_rules.pack_forget()
+
+    if name == &#34;home&#34;: self.page_home.pack(fill=&#34;both&#34;, expand=True)
+    elif name == &#34;dash&#34;: self.page_dash.actualizar(); self.page_dash.pack(fill=&#34;both&#34;, expand=True)
+    elif name == &#34;rules&#34;: self.page_rules.actualizar(); self.page_rules.pack(fill=&#34;both&#34;, expand=True)</code></pre>
+</details>
+<div class="desc"><p>Routing multiplexer to switch active visual views</p></div>
+</dd>
+<dt id="main_enterprise.EnterpriseApp.toggle_sidebar"><code class="name flex">
+<span>def <span class="ident">toggle_sidebar</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def toggle_sidebar(self):
+    if getattr(self, &#34;is_animating&#34;, False): return
+    self.is_animating = True
+    
+    step = 25
+    if self.sidebar_expanded:
+        self.sidebar_expanded = False
+        self.lbl_logo.grid_forget()
+        self.btn_nav_home.configure(text=&#34;  🏠  &#34;)
+        self.btn_nav_dash.configure(text=&#34;  📊  &#34;)
+        self.btn_nav_rules.configure(text=&#34;  ⚙️  &#34;)
+        self.btn_nav_help.configure(text=&#34;  ❔  &#34;)
+        
+        self.sidebar_placeholder.configure(width=self.sidebar_min_width)
+        self.update_idletasks()
+        self._animate_sidebar_place(self.sidebar_width, self.sidebar_min_width, -step)
+    else:
+        self.sidebar_expanded = True
+        self.lbl_logo.grid(row=0, column=0, sticky=&#34;w&#34;, padx=(15, 0))
+        self._animate_sidebar_place(self.sidebar_min_width, self.sidebar_width, step)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="main_enterprise.EnterpriseApp" href="#main_enterprise.EnterpriseApp">EnterpriseApp</a></code></h4>
+<ul class="">
+<li><code><a title="main_enterprise.EnterpriseApp.cambiar_idioma_ayuda" href="#main_enterprise.EnterpriseApp.cambiar_idioma_ayuda">cambiar_idioma_ayuda</a></code></li>
+<li><code><a title="main_enterprise.EnterpriseApp.cerrar_ayuda" href="#main_enterprise.EnterpriseApp.cerrar_ayuda">cerrar_ayuda</a></code></li>
+<li><code><a title="main_enterprise.EnterpriseApp.conectar_websocket" href="#main_enterprise.EnterpriseApp.conectar_websocket">conectar_websocket</a></code></li>
+<li><code><a title="main_enterprise.EnterpriseApp.load_main_dashboard" href="#main_enterprise.EnterpriseApp.load_main_dashboard">load_main_dashboard</a></code></li>
+<li><code><a title="main_enterprise.EnterpriseApp.mostrar_ayuda" href="#main_enterprise.EnterpriseApp.mostrar_ayuda">mostrar_ayuda</a></code></li>
+<li><code><a title="main_enterprise.EnterpriseApp.on_close" href="#main_enterprise.EnterpriseApp.on_close">on_close</a></code></li>
+<li><code><a title="main_enterprise.EnterpriseApp.select_page" href="#main_enterprise.EnterpriseApp.select_page">select_page</a></code></li>
+<li><code><a title="main_enterprise.EnterpriseApp.toggle_sidebar" href="#main_enterprise.EnterpriseApp.toggle_sidebar">toggle_sidebar</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

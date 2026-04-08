@@ -1,0 +1,13 @@
+class Theme:
+    """Centralized Theme Palette for the Enterprise UI."""
+    BG = "#09090B"
+    CARD = "#121215"
+    BORDER = "#27272A"
+    PRIMARY = "#E03131"
+    PRIMARY_HOVER = "#C92A2A"
+    SUCCESS = "#2F9E44"
+    SUCCESS_HOVER = "#2B8A3E"
+    DANGER = "#FA5252"
+    TEXT = "#F8F9FA"
+    MUTED = "#868E96"
+    INPUT = "#1A1B1E"

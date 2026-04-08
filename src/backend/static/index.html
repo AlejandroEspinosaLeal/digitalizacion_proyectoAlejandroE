@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Enterprise Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-900 text-white p-8">
+    <h1 class="text-3xl font-bold mb-6">🚀 Monitor de Agentes Enterprise</h1>
+    <div id="logs" class="grid gap-4">
+    </div>
+
+    <script>
+        const deviceId = "UUID-AGENTE-001";
+        const ws = new WebSocket(`ws://localhost:8000/ws/events/${deviceId}`);
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const logEntry = document.createElement('div');
+            logEntry.className = "bg-slate-800 p-4 rounded-lg border-l-4 border-green-500";
+            logEntry.innerHTML = `
+                <p><strong>Archivo:</strong> ${data.filename}</p>
+                <p class="text-sm text-slate-400">Movido a: ${data.dest_path}</p>
+            `;
+            document.getElementById('logs').prepend(logEntry);
+        };
+    </script>
+</body>
+
+</html>
