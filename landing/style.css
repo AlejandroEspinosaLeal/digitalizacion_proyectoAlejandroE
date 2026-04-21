@@ -490,3 +490,39 @@ footer {
   color: var(--text-secondary);
   font-size: 0.9rem;
 }
+
+/* ================== RESPONSIVE MEDIA QUERIES ================== */
+@media (max-width: 768px) {
+  nav {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 16px 5%;
+    gap: 16px;
+    justify-content: center;
+  }
+  .nav-menu {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nav-links {
+    gap: 12px;
+  }
+  .hero-title {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+  }
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-cta .btn {
+    width: 100%;
+  }
+  .section {
+    padding: 80px 5%;
+  }
+  .auth-widget {
+    padding: 24px;
+  }
+}
+
