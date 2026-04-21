@@ -17,6 +17,8 @@ from datetime import datetime
 from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect, Depends, HTTPException, status, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from jose import jwt, JWTError
 from sqlmodel import Session, create_engine, SQLModel, select
@@ -24,8 +26,8 @@ from sqlmodel import Session, create_engine, SQLModel, select
 # Local module imports
 from src.backend.models import User, Device, SortingRule, FileEvent
 from src.backend.core.security import verify_password, get_password_hash, create_access_token
-
 from src.backend.core.config import settings
+from src.backend.api.v1 import stats as stats_router
 
 # Setup Logging
 logging.basicConfig(level=logging.INFO)
@@ -64,6 +66,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Serve Web Landing Page
+app.mount("/assets", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "../../../landing/assets")), name="assets")
+
+@app.get("/")
+def serve_index():
+    path = os.path.join(os.path.dirname(__file__), "../../../landing/index.html")
+    return FileResponse(path)
+
+# Include stats + dashboard WebSocket router (landing page integration)
+app.include_router(stats_router.router)
+
 # FastAPI Dependency Yielding active DB sessions
 def get_db():
     with Session(engine) as session:
@@ -85,8 +98,8 @@ class ConnectionManager:
             print(f"❌ Agent disconnected: {device_id}")
 
     async def broadcast_to_dashboard(self, message: dict):
-        # Hook for relaying background telemetry into active frontend browsers
-        pass
+        # Relay live file events to all connected web dashboard clients
+        await stats_router.dashboard_manager.broadcast(message)
 
 manager = ConnectionManager()
 
@@ -312,6 +325,16 @@ async def agent_socket(websocket: WebSocket, device_id: str, db: Session = Depen
             with Session(engine) as session:
                 session.add(new_event)
                 session.commit()
+
+            # Broadcast to all connected web dashboard clients
+            category = new_event.dest_path.replace("\\", "/").rstrip("/").split("/")[-1] if new_event.dest_path else "Other"
+            await manager.broadcast_to_dashboard({
+                "type": "file_event",
+                "category": category,
+                "filename": new_event.filename,
+                "device_id": device_id,
+                "timestamp": new_event.timestamp.isoformat() if new_event.timestamp else None,
+            })
 
     except WebSocketDisconnect:
         manager.disconnect(device_id)

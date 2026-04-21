@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | File Sorter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dashboard-layout {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: 100px;
+    }
+    
+    .dashboard-header {
+      max-width: 1000px;
+      margin: 0 auto 32px;
+      width: 100%;
+      padding: 0 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    
+    .stats-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      width: 100%;
+      padding: 0 5%;
+    }
+    
+    .stat-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    
+    .stat-val {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      margin-bottom: 8px;
+    }
+    
+    .stat-lbl {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .table-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 5%;
+    }
+    
+    .activity-panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    
+    th, td {
+      padding: 16px 24px;
+    }
+    
+    th {
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(255,255,255,0.02);
+      font-size: 0.85rem;
+    }
+    
+    td {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.95rem;
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .empty-msg {
+      padding: 60px;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html" class="nav-brand"><span class="icon">📁</span> File Sorter</a>
+    <div class="nav-menu">
+      <select id="lang-select" class="lang-switch">
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+      </select>
+      <div id="user-display" style="display:flex; align-items:center; gap:16px;">
+        <span id="user-email" style="font-size: 0.9rem; color: var(--text-secondary);"></span>
+        <button id="logout-btn" class="btn btn-outline" style="padding: 6px 16px; font-size: 0.85rem;" data-i18n="nav.logout">Log Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- DASHBOARD WRAPPER -->
+  <div class="dashboard-layout">
+    <div class="dashboard-header">
+      <div>
+        <h1 style="font-size: 2rem; margin-bottom: 8px;" data-i18n="dash.title">Activity Dashboard</h1>
+        <p style="color:var(--text-secondary)" data-i18n="dash.subtitle">Live tracking of your enterprise file movements.</p>
+      </div>
+    </div>
+
+    <!-- KPI STATS -->
+    <div class="stats-cards">
+      <div class="stat-card">
+        <div class="stat-val" id="kpi-total">0</div>
+        <div class="stat-lbl" data-i18n="dash.kpi.total">Total Files Sorted</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="kpi-cats">0</div>
+        <div class="stat-lbl" data-i18n="dash.kpi.cats">Categories Created</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="kpi-devices">1</div>
+        <div class="stat-lbl" data-i18n="dash.kpi.devices">Active Agents</div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY TABLE -->
+    <div class="table-container">
+      <div class="activity-panel">
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="dash.table.file">File Name</th>
+              <th data-i18n="dash.table.category">Category</th>
+              <th data-i18n="dash.table.time">Timestamp (UTC)</th>
+            </tr>
+          </thead>
+          <tbody id="activity-tbody">
+            <!-- Rendered by JS -->
+            <tr>
+              <td colspan="3" class="empty-msg" data-i18n="dash.table.loading">Loading records...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase CDN JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="i18n.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

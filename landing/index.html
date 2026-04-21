@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Sorter Enterprise | Minimalist Edition</title>
+  <meta name="description" content="Automated digital organization system.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html" class="nav-brand"><span class="icon">📁</span> File Sorter</a>
+    <div class="nav-menu">
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="nav.features">Features</a></li>
+        <li><a href="#demo" data-i18n="nav.demo">App Demo</a></li>
+      </ul>
+      <select id="lang-select" class="lang-switch">
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+      </select>
+      <a href="#auth-section" id="nav-login-btn" class="btn btn-primary" data-i18n="nav.login">Log In</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="section-tag" style="margin-bottom: 24px;" data-i18n="hero.badge">Enterprise Automation</div>
+    <h1 class="hero-title" data-i18n="hero.title">Organize Your Files. Automatically.</h1>
+    <p class="hero-subtitle" data-i18n="hero.subtitle">File Sorter Enterprise is the automated digital organization system designed to maintain order across your entire company.</p>
+    <div class="hero-cta">
+      <a href="#auth-section" class="btn btn-primary" data-i18n="hero.cta">Create Account</a>
+      <a href="#demo" class="btn btn-outline" data-i18n="nav.demo">App Demo</a>
+    </div>
+
+    <!-- AUTHENTICATION WIDGET -->
+    <div id="auth-section" class="auth-widget">
+      <div class="auth-tabs">
+        <div class="auth-tab active" id="tab-login" data-i18n="auth.login_title">Sign In</div>
+        <div class="auth-tab" id="tab-register" data-i18n="auth.signup_title">Create Account</div>
+      </div>
+      <form id="auth-form">
+        <div class="form-group">
+          <label for="auth-email" data-i18n="auth.email_label">Email Address</label>
+          <input type="email" id="auth-email" class="form-input" required data-i18n-placeholder="auth.email_label" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+          <label for="auth-password" data-i18n="auth.pass_label">Password</label>
+          <input type="password" id="auth-password" class="form-input" required placeholder="••••••••">
+        </div>
+        <button type="submit" id="auth-submit" class="btn btn-primary auth-btn" data-i18n="auth.submit_log">Log In →</button>
+        <div id="auth-msg" class="auth-msg"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- APP DOCUMENTATION / DEMO SECTION -->
+  <section id="demo" class="section">
+    <span class="section-tag" data-i18n="demo.tag">How It Works</span>
+    <h2 class="section-title" data-i18n="demo.title">See It In Action</h2>
+    <p class="section-desc" data-i18n="demo.desc">Drop files into your monitored folder and the Rules Engine handles the rest seamlessly.</p>
+    
+    <div class="demo-container">
+      <!-- Interactive Copy Simulation -->
+      <div class="demo-box">
+        <h3 data-i18n="demo.drop_title">Drop Zone Simulation</h3>
+        <div class="drop-zone" onclick="simulateSort()">
+          <span class="drop-icon">📂</span>
+          <span class="drop-text" data-i18n="demo.drop_desc">Click here to simulate sorting a new file.</span>
+        </div>
+        <div class="file-cards" id="demo-card-container">
+          <!-- Dynamically inserted cards will go here -->
+        </div>
+      </div>
+      
+      <!-- Displayed Rules Engine -->
+      <div class="demo-box" style="background: transparent;">
+        <h3 data-i18n="demo.rules_title">Active Rules Engine</h3>
+        
+        <div class="rule-item">
+          <span class="rule-icon">📄</span>
+          <div class="rule-details">
+            <h4 data-i18n="demo.rules.doc">Documents</h4>
+            <p data-i18n="demo.rules.doc_ext">.pdf, .docx, .xlsx</p>
+          </div>
+        </div>
+        
+        <div class="rule-item">
+          <span class="rule-icon">🖼️</span>
+          <div class="rule-details">
+            <h4 data-i18n="demo.rules.img">Images</h4>
+            <p data-i18n="demo.rules.img_ext">.png, .jpg, .svg</p>
+          </div>
+        </div>
+        
+        <div class="rule-item">
+          <span class="rule-icon">🎬</span>
+          <div class="rule-details">
+            <h4 data-i18n="demo.rules.vid">Videos</h4>
+            <p data-i18n="demo.rules.vid_ext">.mp4, .mov, .avi</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 File Sorter Enterprise. Open Source.</p>
+  </footer>
+
+  <div id="toast"></div>
+
+  <!-- Supabase CDN JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
