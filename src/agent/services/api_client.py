@@ -84,9 +84,9 @@ class APIClient:
         for log in logs_payload:
             supabase_payload.append({
                 "device_id": self.app_state.device_id,
-                "filename": log.get("filename", "unknown"),
-                "source_path": log.get("source_path", ""),
-                "dest_path": log.get("dest_path", "")
+                "filename": log.get("filename", log.get("file", "unknown")),
+                "source_path": log.get("source_path", log.get("origen_real", "")),
+                "dest_path": log.get("dest_path", log.get("destino_real", ""))
             })
         
         try:
@@ -123,9 +123,9 @@ class APIClient:
                 for log in legacy_logs:
                     payload.append({
                         "device_id": self.app_state.device_id,
-                        "filename": log.get("filename", "unknown"),
-                        "source_path": log.get("source_path", ""),
-                        "dest_path": log.get("dest_path", "")
+                        "filename": log.get("filename", log.get("file", "unknown")),
+                        "source_path": log.get("source_path", log.get("origen_real", "")),
+                        "dest_path": log.get("dest_path", log.get("destino_real", ""))
                     })
             if not payload:
                 self.offline_queue.remove(log_id)
