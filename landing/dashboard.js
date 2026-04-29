@@ -115,23 +115,26 @@ function renderChart(counts, total) {
         data: data,
         backgroundColor: backgroundColors.slice(0, data.length),
         borderColor: borderColors.slice(0, data.length),
-        borderWidth: 4,
-        borderRadius: 4,
-        hoverOffset: 8
+        borderWidth: 2,
+        hoverOffset: 4
       }]
     },
     options: {
       responsive: true,
-      cutout: '65%', // makes it a thin ring
+      maintainAspectRatio: false,
+      cutout: '75%', // anillo más fino y elegante
+      layout: {
+        padding: 10
+      },
       plugins: {
         legend: {
           position: 'bottom',
           labels: { 
-            color: '#94a3b8',
-            padding: 24,
+            color: isDarkChart ? '#a1a1aa' : '#52525b',
+            padding: 20,
             usePointStyle: true,
             pointStyle: 'circle',
-            font: { size: 13 }
+            font: { size: 12 }
           }
         }
       }

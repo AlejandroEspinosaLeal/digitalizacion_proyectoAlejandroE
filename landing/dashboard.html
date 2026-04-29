@@ -126,7 +126,7 @@
       <div class="lg:col-span-2">
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-sm overflow-hidden transition-colors duration-300">
           <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm whitespace-nowrap">
+            <table class="w-full text-left text-sm">
               <thead class="bg-zinc-50 dark:bg-zinc-800/50 text-zinc-500 dark:text-zinc-400 border-b border-zinc-200 dark:border-zinc-800">
                 <tr>
                   <th class="px-6 py-4 font-semibold" data-i18n="dash.table.file">File Name</th>
@@ -146,14 +146,14 @@
       </div>
 
       <!-- PIE CHART -->
-      <div class="lg:col-span-1">
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-sm p-8 flex flex-col items-center transition-colors duration-300 h-full">
-          <div class="text-center mb-8">
+      <div class="lg:col-span-1 flex flex-col">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-sm p-6 sm:p-8 flex flex-col flex-1 items-center justify-center transition-colors duration-300">
+          <div class="text-center mb-6 w-full">
             <h2 class="text-lg font-bold text-zinc-900 dark:text-white mb-1" data-i18n="dash.chart.title">Distribution by Extension</h2>
             <p class="text-xs text-zinc-500 dark:text-zinc-400" data-i18n="dash.chart.subtitle">Visual breakdown of your sorted files</p>
           </div>
           
-          <div class="w-full max-w-[280px] mt-auto mb-auto filter drop-shadow-sm">
+          <div class="relative w-full max-w-[260px] aspect-square flex items-center justify-center">
             <canvas id="extensionChart"></canvas>
           </div>
         </div>
