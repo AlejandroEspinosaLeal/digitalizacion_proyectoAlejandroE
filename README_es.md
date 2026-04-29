@@ -2,6 +2,10 @@
 
 File Sorter Enterprise es un sistema de gobernanza de archivos automatizado (asistido por IA) que rescata discos duros no estructurados del caos digital. Monitorea, categoriza y organiza los archivos entrantes (documentos, media, instaladores) hacia estructuras de directorios rígidas mientras transmite las métricas en tiempo real a tu dashboard en la nube.
 
+## Demo Online
+Puedes probar la versión web del Dashboard estilo SaaS directamente aquí:
+🌐 **[Demo en Vercel](https://filesorterv1.vercel.app/index.html)**
+
 ## Requisitos Previos
 - Python 3.10+
 - SQLite (Integrado en Python)
