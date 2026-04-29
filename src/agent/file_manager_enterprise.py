@@ -65,8 +65,24 @@ class EnterpriseFileManager:
         self.custom_rules = reglas
         self._guardar_json("custom_rules.json", reglas)
 
-    def guardar_regla_custom(self, ext, kw, cat):
-        """Stores a new user-defined sorting rule manually created from the GUI."""
+    def guardar_regla_custom(self, ext: str, kw: str, cat: str) -> None:
+        """
+        Stores a new user-defined sorting rule manually created from the GUI.
+        
+        Parameters:
+            ext (str): The file extension to match (e.g., '.pdf').
+            kw (str): The keyword that must be present in the filename.
+            cat (str): The target destination folder (e.g., 'Invoices').
+            
+        Returns:
+            None
+            
+        Raises:
+            IOError: If the internal file 'custom_rules.json' cannot be accessed.
+            
+        Example:
+            >>> manager.guardar_regla_custom(".pdf", "invoice", "Finance")
+        """
         self.custom_rules.append({"ext": ext, "key": kw, "cat": cat})
         self.guardar_reglas_locales(self.custom_rules)
 
@@ -83,8 +99,23 @@ class EnterpriseFileManager:
             return r.json()
         except: return []
 
-    def obtener_carpeta_destino(self, extension):
-        """Maps a file extension to its primary parent category."""
+    def obtener_carpeta_destino(self, extension: str) -> str:
+        """
+        Maps a file extension to its primary parent category grouping.
+        
+        Parameters:
+            extension (str): The file extension string starting with a dot (e.g., '.jpg').
+            
+        Returns:
+            str: The translated name of the category folder (e.g., 'Images').
+            
+        Raises:
+            None
+            
+        Example:
+            >>> manager.obtener_carpeta_destino(".mp4")
+            'Audio Video'
+        """
         ext = extension.lower()
         for folder, extensions in DIRECTORIES.items():
             if ext in extensions:
@@ -116,11 +147,27 @@ class EnterpriseFileManager:
             pass
         return archivos
 
-    def procesar_lote(self, base_path, categorias_activas, opciones, callback_log):
+    def procesar_lote(self, base_path: str, categorias_activas: list, opciones: dict, callback_log) -> list:
         """
         The principal orchestrator that processes a folder sorting request.
         Translates file metadata, validates rules, moves paths, caches history,
         and dispatches real-time Live Sync events to the background network server.
+        
+        Parameters:
+            base_path (str): The absolute path of the unstructured folder to evaluate.
+            categorias_activas (list): A list of strings defining allowed matching categories.
+            opciones (dict): Execution configurations such as 'dry_run'.
+            callback_log (Callable): Invoked UI callback to pipe visual logs.
+            
+        Returns:
+            list: Log of multiple parsed files reflecting successful routing or failures.
+            
+        Raises:
+            OSError: When a critical permissions blockade occurs disrupting iteration.
+            
+        Example:
+            >>> opts = {"dry_run": True, "crear_carpetas_fecha": False}
+            >>> manager.procesar_lote("C:/Downloads", ["Images", "Documents"], opts, print)
         """
         dry_run = opciones.get("dry_run", False)
         por_fecha = opciones.get("crear_carpetas_fecha", False)
@@ -233,8 +280,25 @@ class EnterpriseFileManager:
 
         return movimientos_log
 
-    def deshacer_ultimo(self, callback_log):
-        """Reverses the last batch of sorted files back to their original locations."""
+    def deshacer_ultimo(self, callback_log) -> bool:
+        """
+        Reverses the last batch of sorted files back to their original locations.
+        Reads the cached history pointer and traces movement signatures.
+        
+        Parameters:
+            callback_log (Callable): Used to broadcast undo-logs to the screen.
+            
+        Returns:
+            bool: True if rollback was successfully applied, False if empty caching.
+            
+        Raises:
+            Exception: Swallows atomic errors if a singular file cannot move back.
+            
+        Example:
+            >>> manager.deshacer_ultimo(print)
+            RESTORED: file1.png
+            True
+        """
         if not self.ultimo_movimiento:
             callback_log("Nothing to undo (Empty rollback cache).")
             return False

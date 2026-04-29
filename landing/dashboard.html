@@ -159,6 +159,13 @@
       </div>
     </div>
 
+    <!-- PIE CHART -->
+    <div class="chart-container" style="max-width: 1000px; margin: 0 auto 40px; width: 100%; padding: 0 5%; display: flex; justify-content: center; align-items: center; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding-top: 24px; padding-bottom: 24px;">
+      <div style="width: 100%; max-width: 400px;">
+        <canvas id="extensionChart"></canvas>
+      </div>
+    </div>
+
     <!-- ACTIVITY TABLE -->
     <div class="table-container">
       <div class="activity-panel">
@@ -167,13 +174,14 @@
             <tr>
               <th data-i18n="dash.table.file">File Name</th>
               <th data-i18n="dash.table.category">Category</th>
+              <th data-i18n="dash.table.path">Path</th>
               <th data-i18n="dash.table.time">Timestamp (UTC)</th>
             </tr>
           </thead>
           <tbody id="activity-tbody">
             <!-- Rendered by JS -->
             <tr>
-              <td colspan="3" class="empty-msg" data-i18n="dash.table.loading">Loading records...</td>
+              <td colspan="4" class="empty-msg" data-i18n="dash.table.loading">Loading records...</td>
             </tr>
           </tbody>
         </table>
@@ -183,6 +191,8 @@
 
   <!-- Supabase CDN JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="i18n.js"></script>
   <script src="dashboard.js"></script>
 </body>

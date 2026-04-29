@@ -57,6 +57,67 @@ function iconForCat(cat) {
   return '📦';
 }
 
+function getExtension(filename) {
+  if (!filename) return 'other';
+  const parts = filename.split('.');
+  if (parts.length > 1) {
+    return parts.pop().toLowerCase();
+  }
+  return 'other';
+}
+
+let extensionChartInstance = null;
+
+function renderChart(counts, total) {
+  if (!window.Chart) return;
+  const ctx = document.getElementById('extensionChart');
+  if (!ctx) return;
+
+  const labels = [];
+  const data = [];
+  const backgroundColors = [
+    '#4e79a7', '#f28e2c', '#e15759', '#76b7b2', '#59a14f', 
+    '#edc949', '#af7aa1', '#ff9da7', '#9c755f', '#bab0ab'
+  ];
+
+  for (const [ext, count] of Object.entries(counts)) {
+    const percentage = ((count / total) * 100).toFixed(1);
+    labels.push(`${ext.toUpperCase()} (${percentage}%)`);
+    data.push(count);
+  }
+
+  if (extensionChartInstance) {
+    extensionChartInstance.destroy();
+  }
+
+  extensionChartInstance = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: backgroundColors.slice(0, data.length),
+        borderWidth: 1,
+        borderColor: '#1e1e1e'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: { color: '#a0a0a0' }
+        },
+        title: {
+          display: true,
+          text: 'File Extensions',
+          color: '#ffffff'
+        }
+      }
+    }
+  });
+}
+
 async function loadActivityData(user) {
   const tbody = document.getElementById("activity-tbody");
 
@@ -78,18 +139,24 @@ async function loadActivityData(user) {
 
     // fallback mock data if completely empty DB architecture
     if (events.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="3" class="empty-msg" data-i18n="dash.table.empty">No file movement events detected yet.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="4" class="empty-msg" data-i18n="dash.table.empty">No file movement events detected yet.</td></tr>`;
       document.getElementById("kpi-total").textContent = "0";
       return;
     }
 
     const categoriesUsed = new Set();
+    const extensionCounts = {};
+    let totalFilesForChart = 0;
 
     // Render Rows
     tbody.innerHTML = events.map(ev => {
       const cat = getDerivedCategory(ev.dest_path);
       categoriesUsed.add(cat);
       const icon = iconForCat(cat);
+
+      const ext = getExtension(ev.filename);
+      extensionCounts[ext] = (extensionCounts[ext] || 0) + 1;
+      totalFilesForChart++;
 
       let dateString = "Unknown";
       if (ev.timestamp) {
@@ -103,6 +170,7 @@ async function loadActivityData(user) {
           <span style="margin-right:8px">${icon}</span> ${ev.filename || 'Unknown File'}
         </td>
         <td><span class="fc-tag" style="background:rgba(255,255,255,0.05); color:var(--text-secondary)">${cat}</span></td>
+        <td style="color:var(--text-secondary); font-family: monospace; font-size: 0.85em;">${ev.dest_path || 'Unknown'}</td>
         <td style="color:var(--text-secondary)">${dateString}</td>
       </tr>`;
     }).join("");
@@ -110,9 +178,11 @@ async function loadActivityData(user) {
     document.getElementById("kpi-total").textContent = events.length;
     document.getElementById("kpi-cats").textContent = categoriesUsed.size;
 
+    renderChart(extensionCounts, totalFilesForChart);
+
   } catch (error) {
     console.error("Dashboard DB fetch error:", error);
-    tbody.innerHTML = `<tr><td colspan="3" class="empty-msg" style="color:var(--danger)">Error loading data.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="4" class="empty-msg" style="color:var(--danger)">Error loading data.</td></tr>`;
   }
 }
 
@@ -127,6 +197,7 @@ function injectDashboardTranslations() {
     "dash.kpi.devices": "Active Agents",
     "dash.table.file": "File Name",
     "dash.table.category": "Target Category",
+    "dash.table.path": "Destination Path",
     "dash.table.time": "Timestamp",
     "dash.table.loading": "Loading records...",
     "dash.table.empty": "No file movement events detected yet."
@@ -141,6 +212,7 @@ function injectDashboardTranslations() {
     "dash.kpi.devices": "Dispositivos Activos",
     "dash.table.file": "Nombre del Archivo",
     "dash.table.category": "Categoría Destino",
+    "dash.table.path": "Ruta de Destino",
     "dash.table.time": "Fecha / Hora",
     "dash.table.loading": "Cargando registros...",
     "dash.table.empty": "Aún no se han detectado movimientos de archivos."

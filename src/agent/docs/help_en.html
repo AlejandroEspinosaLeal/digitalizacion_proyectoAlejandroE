@@ -2,40 +2,43 @@
 <html>
 <head>
 <style>
-body { background-color: #111827; color: #F9FAFB; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 30px; margin: 0; line-height: 1.6; }
-h1 { color: #6366F1; font-size: 28px; border-bottom: 2px solid #1F2937; padding-bottom: 10px; margin-top: 0; }
-h2 { color: #10B981; font-size: 20px; margin-top: 25px; }
-p { font-size: 15px; color: #D1D5DB; }
-ul { background-color: #1F2937; border-radius: 12px; padding: 20px 40px; }
-li { margin-bottom: 12px; color: #E5E7EB; }
-strong { color: #6366F1; }
-.highlight { background-color: #374151; padding: 2px 6px; border-radius: 4px; color: #10B981; font-family: monospace; }
+body { background-color: #1C1C1E; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 30px; margin: 0; line-height: 1.6; }
+h1 { color: #FFFFFF; font-size: 28px; border-bottom: 1px solid #3A3A3C; padding-bottom: 15px; margin-top: 0; font-weight: 700; letter-spacing: -0.5px; }
+h2 { color: #007AFF; font-size: 20px; margin-top: 25px; font-weight: 600; }
+p { font-size: 15px; color: #E5E5EA; }
+ul, ol { background-color: #2C2C2E; border-radius: 12px; padding: 20px 40px; border: 1px solid #3A3A3C; }
+li { margin-bottom: 12px; color: #E5E5EA; font-size: 15px; }
+strong { color: #FFFFFF; font-weight: 600; }
+.highlight { background-color: #3A3A3C; padding: 3px 8px; border-radius: 6px; color: #34C759; font-family: monospace; font-size: 13px; }
 </style>
 </head>
 <body>
-    <h1>User Guide - Enterprise File Governance</h1>
-    <p>Welcome! This tool organizes your storage instances automatically based on state-of-the-art hierarchical directory tracking.</p>
+    <h1>File Sorter Enterprise - User Guide</h1>
+    <p>Welcome to your intelligent file governance dashboard! Here is everything you need to know to automate your massive file storage organization.</p>
     
-    <h2>1. Source Directory Input</h2>
-    <p>Click on the main central hub to explore for an unstructured folder. <strong>NEW:</strong> You can also seamlessly Drag & Drop target folders directly into the UI dropzone.</p>
-    
-    <h2>2. Premium Productivity Engine</h2>
+    <h2>1. Getting Started: The Home Page</h2>
+    <ol>
+        <li><strong>Select Source Folder:</strong> Drag & Drop any chaotic folder (like your <code>Downloads</code>) directly into the main dropzone, or click inside the container to browse for it manually.</li>
+        <li><strong>Toggle Filters:</strong> Safely uncheck any file categories you do not want the system to process (e.g., sort out the generic Documents but leave massive Video renders exactly where they stand).</li>
+        <li><strong>Start Organization:</strong> Click the primary green 'Start Organization' button. The intelligent engine will immediately categorize and move the files into highly structured new subdirectories mapped by logic paradigms.</li>
+    </ol>
+
+    <h2>2. Advanced Settings</h2>
     <ul>
-        <li><strong>Rollback Engine (Undo):</strong> The red <span class="highlight">⏪ Deshacer Lote</span> action button allows a full 1oo% guaranteed rollback of the latest sweep iteration, returning millions of moved files exactly back to their origin path safely.</li>
-        <li><strong>Analytics Dashboard:</strong> Using an offline persistent JSON memory state, the Dashboard tab displays live historical aggregated success rates and file statistics.</li>
-        <li><strong>Custom Local Rule Engine:</strong> Build your own algorithmic routing mappings assigning precise text-keyword matches and strict file extensions to your own custom directory folders.</li>
+        <li><strong>Dry-Run Mode:</strong> Switch this to test your rules securely. The app will logically simulate the mapping workflow and output a status log telling you what is going to happen, but without actually modifying any bytes inside your physical drives.</li>
+        <li><strong>Continuous Watchdog:</strong> Enable this daemon to run perpetually and silently in the background alongside the OS. It will automatically detect, scan, and sort newly downloaded items within fractions of seconds upon them hitting the watched route.</li>
+        <li><strong>Undo Batch:</strong> Made a fundamental mistake during deployment? No panic. Gently click the red <span class="highlight">⏪ Undo Batch</span> to trigger a guaranteed 100% mechanical rollback taking all swept assets entirely back to their primary origins reliably.</li>
+        <li><strong>Exclusions:</strong> Type comma-separated string keywords (e.g., <span class="highlight">draft, temp, private</span>) in the ignore-list input to instruct the crawler to entirely blindside files matching the syntax structure.</li>
     </ul>
 
-    <h2>3. Core Parameter Toggles</h2>
+    <h2>3. Metrics Dashboard</h2>
+    <p>Switch gears to the <strong>Metrics Dashboard</strong> endpoint found natively on the left navigation strip to overview an encompassing breakdown of all the items safely rescued up. Monitor high-level graphs defining success metrics based uniquely structured against hierarchical groups in real-time context.</p>
+
+    <h2>4. Automata & Local Rules</h2>
+    <p>Demanding enterprise categorization? Move downwards to the <strong>Rules Engine</strong> view logic. You can enforce granular overrides allowing you to intercept precise string identifiers matching defined extensions directly bypassing generic folders altogether.</p>
     <ul>
-        <li><strong>Dry-Run Mode (Simulacro):</strong> Safely evaluates pattern-matches and simulates the internal target paths WITHOUT moving any real bytes across disks. Ideal for testing custom rules.</li>
-        <li><strong>Recursive Scanning (Subcarpetas):</strong> Drops into endless labyrinth sub-directories discovering and gathering stray files to centralize them via the high-performance 'os.scandir' iterator.</li>
-        <li><strong>Date Sorting Hook:</strong> Wraps categorized outputs inside auto-generated Year/Month directory nodes bypassing flat congestion.</li>
-        <li><strong>Continuous Watchdog Hook:</strong> Silent daemon that runs perpetually in the background sorting inbound payloads instantly.</li>
-        <li><strong>Exclusion Overrides:</strong> Type comma-separated keywords like <span class="highlight">draft, temp</span> to strictly ignore targeted items.</li>
+        <li><strong>Algorithm Example:</strong> If mapped Extension happens to be <code>.pdf</code> + AND String parameter holds <code>invoice</code> 🡆 Omit default handling and redirect routing to targeted absolute <code>Finance Logs</code> custom bin.</li>
     </ul>
-    
-    <h2>4. Batch Execution Layout</h2>
-    <p>Running the main process spawns threaded unblocking background executors. Upon completion, a comprehensive <strong style="color: #10B981;">HTML Security Audit log</strong> is SMTP-delivered seamlessly toward your registered enterprise email inbox.</p>
+
 </body>
 </html>

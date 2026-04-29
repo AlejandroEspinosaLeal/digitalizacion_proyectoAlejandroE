@@ -9,6 +9,7 @@ from watchdog.events import FileSystemEventHandler
 from src.agent.models.theme import Theme
 from src.agent.models.state import AppState
 from src.agent.services.api_client import APIClient
+from src.agent.views.apple_components import AppleHeading, AppleCard, AppleInput, AppleButton, AppleSubText
 
 class HomeView(ctk.CTkScrollableFrame):
     """
@@ -27,11 +28,11 @@ class HomeView(ctk.CTkScrollableFrame):
     def build_ui(self):
         header = ctk.CTkFrame(self, fg_color="transparent")
         header.pack(fill="x", padx=40, pady=(40, 20))
-        ctk.CTkLabel(header, text="Drag & Drop Processing", font=ctk.CTkFont(size=28, weight="bold"), text_color=Theme.TEXT).pack(side="left")
+        AppleHeading(header, text="Drag & Drop Processing", size=28).pack(side="left")
         
-        f1 = ctk.CTkFrame(self, fg_color=Theme.CARD, corner_radius=16, border_width=1, border_color=Theme.BORDER)
+        f1 = AppleCard(self)
         f1.pack(fill="x", padx=40, pady=(0, 20))
-        ctk.CTkLabel(f1, text="Source Directory (Drag folder or click)", font=ctk.CTkFont(size=14, weight="bold"), text_color=Theme.TEXT).pack(anchor="w", padx=25, pady=(20, 5))
+        ctk.CTkLabel(f1, text="Source Directory (Drag folder or click)", font=ctk.CTkFont(family="Helvetica", size=14, weight="bold"), text_color=Theme.TEXT).pack(anchor="w", padx=25, pady=(20, 5))
         
         self.lbl_origen = ctk.CTkLabel(f1, text="📁 Drag files here...", font=ctk.CTkFont(size=15), text_color=Theme.MUTED, fg_color=Theme.INPUT, corner_radius=12, cursor="hand2")
         self.lbl_origen.pack(fill="x", padx=25, pady=(5, 25), ipady=25)
@@ -40,9 +41,9 @@ class HomeView(ctk.CTkScrollableFrame):
         self.lbl_origen.drop_target_register(DND_FILES)
         self.lbl_origen.dnd_bind('<<Drop>>', self.drop_origen)
 
-        f2 = ctk.CTkFrame(self, fg_color=Theme.CARD, corner_radius=16, border_width=1, border_color=Theme.BORDER)
+        f2 = AppleCard(self)
         f2.pack(fill="x", padx=40, pady=20)
-        ctk.CTkLabel(f2, text="Category Filters", font=ctk.CTkFont(size=14, weight="bold"), text_color=Theme.TEXT).pack(anchor="w", padx=25, pady=(20, 10))
+        ctk.CTkLabel(f2, text="Category Filters", font=ctk.CTkFont(family="Helvetica", size=14, weight="bold"), text_color=Theme.TEXT).pack(anchor="w", padx=25, pady=(20, 10))
         
         grid_cats = ctk.CTkFrame(f2, fg_color="transparent")
         grid_cats.pack(fill="x", padx=25, pady=(0, 25))
@@ -57,11 +58,11 @@ class HomeView(ctk.CTkScrollableFrame):
                 grid_cats.grid_columnconfigure(i%3, weight=1)
                 self.chk_cats[cat] = var
 
-        f3 = ctk.CTkFrame(self, fg_color=Theme.CARD, corner_radius=16, border_width=1, border_color=Theme.BORDER)
+        f3 = AppleCard(self)
         f3.pack(fill="x", padx=40, pady=20)
-        ctk.CTkLabel(f3, text="Organization Settings", font=ctk.CTkFont(size=14, weight="bold"), text_color=Theme.TEXT).pack(anchor="w", padx=25, pady=(20, 10))
+        ctk.CTkLabel(f3, text="Organization Settings", font=ctk.CTkFont(family="Helvetica", size=14, weight="bold"), text_color=Theme.TEXT).pack(anchor="w", padx=25, pady=(20, 10))
         
-        self.entry_ignore = ctk.CTkEntry(f3, placeholder_text="Exclusiones separated by comma (e.g., draft, private)", height=45, fg_color=Theme.INPUT, border_color=Theme.BORDER, text_color=Theme.TEXT)
+        self.entry_ignore = AppleInput(f3, placeholder_text="Exclusiones separated by comma (e.g., draft, private)")
         self.entry_ignore.pack(fill="x", padx=25, pady=(0, 20))
         
         opts_grid = ctk.CTkFrame(f3, fg_color="transparent")
@@ -80,13 +81,13 @@ class HomeView(ctk.CTkScrollableFrame):
         self.actions = ctk.CTkFrame(self, fg_color="transparent")
         self.actions.pack(fill="x", padx=40, pady=30, side="bottom")
         
-        self.btn_run = ctk.CTkButton(self.actions, text="🚀 Start Organization", font=ctk.CTkFont(size=16, weight="bold"), fg_color=Theme.SUCCESS, hover_color=Theme.SUCCESS_HOVER, text_color="white", height=60, corner_radius=15, command=self.ejecutar_organizacion)
+        self.btn_run = AppleButton(self.actions, text="🚀 Start Organization", variant="success", height=60, font=ctk.CTkFont(family="Helvetica", size=16, weight="bold"), command=self.ejecutar_organizacion)
         self.btn_run.pack(side="left", expand=True, fill="x", padx=(0, 15))
         
         self.progress_bar = ctk.CTkProgressBar(self.actions, width=150, progress_color=Theme.PRIMARY, mode="indeterminate")
         self.progress_bar.set(0)
         
-        self.btn_undo = ctk.CTkButton(self.actions, text="⏪ Undo Batch", font=ctk.CTkFont(size=14, weight="bold"), fg_color=Theme.DANGER, hover_color="#B91C1C", text_color="white", height=60, corner_radius=15, width=150, command=self.ejecutar_deshacer)
+        self.btn_undo = AppleButton(self.actions, text="⏪ Undo Batch", variant="danger", height=60, width=150, font=ctk.CTkFont(family="Helvetica", size=14, weight="bold"), command=self.ejecutar_deshacer)
         self.btn_undo.pack(side="left", padx=15)
         
         self.status_bar = ctk.CTkLabel(self.actions, text="Inactive.", text_color=Theme.MUTED, font=ctk.CTkFont(size=14))

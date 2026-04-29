@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from src.agent.models.theme import Theme
+from src.agent.views.apple_components import AppleCard, AppleHeading, AppleSubText
 
 class DashboardView(ctk.CTkScrollableFrame):
     """
@@ -12,9 +13,9 @@ class DashboardView(ctk.CTkScrollableFrame):
         
         header = ctk.CTkFrame(self, fg_color="transparent")
         header.pack(fill="x", padx=40, pady=(40, 20))
-        ctk.CTkLabel(header, text="System Metrics", font=ctk.CTkFont(size=28, weight="bold"), text_color=Theme.TEXT).pack(side="left")
+        AppleHeading(header, text="System Metrics", size=28).pack(side="left")
         
-        self.lbl_t_archivos = ctk.CTkLabel(self, text="0 Organized Files", font=ctk.CTkFont(size=38, weight="bold"), text_color=Theme.PRIMARY)
+        self.lbl_t_archivos = ctk.CTkLabel(self, text="0 Organized Files", font=ctk.CTkFont(family="Helvetica", size=38, weight="bold"), text_color=Theme.PRIMARY)
         self.lbl_t_archivos.pack(pady=40)
         
         self.dash_grid = ctk.CTkFrame(self, fg_color="transparent")
@@ -30,16 +31,16 @@ class DashboardView(ctk.CTkScrollableFrame):
         import os
         cats = sorted(h.get("por_categoria", {}).items(), key=lambda x: -x[1])
         for i, (cat, qty) in enumerate(cats):
-            card = ctk.CTkFrame(self.dash_grid, fg_color=Theme.CARD, corner_radius=16, border_color=Theme.BORDER, border_width=1)
+            card = AppleCard(self.dash_grid)
             card.pack(fill="x", pady=5)
             
             header = ctk.CTkFrame(card, fg_color="transparent", height=45, cursor="hand2")
             header.pack(fill="x")
             
-            lbl_cat = ctk.CTkLabel(header, text=f"📂 {cat}", font=ctk.CTkFont(size=15), cursor="hand2")
+            lbl_cat = ctk.CTkLabel(header, text=f"📂 {cat}", font=ctk.CTkFont(family="Helvetica", size=15), cursor="hand2")
             lbl_cat.pack(side="left", padx=20, pady=10)
             
-            lbl_qty = ctk.CTkLabel(header, text=f"{qty:,}".replace(",", "."), font=ctk.CTkFont(size=15, weight="bold"), text_color=Theme.SUCCESS, cursor="hand2")
+            lbl_qty = ctk.CTkLabel(header, text=f"{qty:,}".replace(",", "."), font=ctk.CTkFont(family="Helvetica", size=15, weight="bold"), text_color=Theme.SUCCESS, cursor="hand2")
             lbl_qty.pack(side="right", padx=20, pady=10)
             
             details_frame = ctk.CTkFrame(card, fg_color="transparent")
@@ -56,9 +57,9 @@ class DashboardView(ctk.CTkScrollableFrame):
             
             if archivos_cat:
                 for arch in archivos_cat:
-                    ctk.CTkLabel(details_frame, text=f"📄 {arch}", font=ctk.CTkFont(size=12), text_color=Theme.MUTED).pack(anchor="w", padx=40, pady=2)
+                    AppleSubText(details_frame, text=f"📄 {arch}", size=12).pack(anchor="w", padx=40, pady=2)
             else:
-                ctk.CTkLabel(details_frame, text="No recent files from this session", font=ctk.CTkFont(size=12, slant="italic"), text_color=Theme.MUTED).pack(anchor="w", padx=40, pady=2)
+                AppleSubText(details_frame, text="No recent files from this session", font=ctk.CTkFont(family="Helvetica", size=12, slant="italic")).pack(anchor="w", padx=40, pady=2)
                 
             def toggle_details(event, df=details_frame):
                 if df.winfo_ismapped():

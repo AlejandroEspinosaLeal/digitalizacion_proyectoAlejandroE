@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { background-color: #1C1C1E; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 30px; margin: 0; line-height: 1.6; }
+h1 { color: #FFFFFF; font-size: 28px; border-bottom: 1px solid #3A3A3C; padding-bottom: 15px; margin-top: 0; font-weight: 700; letter-spacing: -0.5px; }
+h2 { color: #007AFF; font-size: 20px; margin-top: 25px; font-weight: 600; }
+p { font-size: 15px; color: #E5E5EA; }
+ul, ol { background-color: #2C2C2E; border-radius: 12px; padding: 20px 40px; border: 1px solid #3A3A3C; }
+li { margin-bottom: 12px; color: #E5E5EA; font-size: 15px; }
+strong { color: #FFFFFF; font-weight: 600; }
+.highlight { background-color: #3A3A3C; padding: 3px 8px; border-radius: 6px; color: #34C759; font-family: monospace; font-size: 13px; }
+</style>
+</head>
+<body>
+    <h1>Manual de Usuario - File Sorter Enterprise</h1>
+    <p>¡Bienvenido a tu panel de gobernanza de archivos inteligente! Aquí tienes todo lo necesario para empezar a clasificar tus descargas automáticamente.</p>
+    
+    <h2>1. Primeros pasos: Panel de Organización</h2>
+    <ol>
+        <li><strong>Agrega el Directorio Base:</strong> Arrastra (Drag & Drop) cualquier carpeta caótica (ej. tus <code>Descargas</code>) a la zona de escaneo principal. Alternativamente, puedes hacer clic dentro de la caja gris para buscar la ruta manualmente.</li>
+        <li><strong>Ajustes de Filtro:</strong> Puedes desmarcar cualquier categoría inferior que no quieras procesar (por ejemplo, podrías querer organizar los Documentos pero dejar los Videos donde estaban).</li>
+        <li><strong>Iniciar Ordenamiento:</strong> Pulsa el gran botón verde de 'Start Organization'. El motor clasificará al instante cada archivo, auto-generando subcarpetas si es necesario, moviéndolo a su lugar correcto.</li>
+    </ol>
+
+    <h2>2. Configuraciones Avanzadas</h2>
+    <ul>
+        <li><strong>Simulacro (Dry-Run Mode):</strong> Actívalo para probar tus reglas lógicas. La aplicación te dirá en consola exactamente a dónde iría a parar cada archivo, pero SIN tocar absolutamente ningún byte en tu disco duro. Ideal para evitar bloqueos por desconocimiento.</li>
+        <li><strong>Vigilancia Continua (Watchdog):</strong> Transforma el programa en un robot que vigila de fondo. Clasificará ininterrumpidamente cualquier archivo nuevo que sea descargado y caiga en tu ruta observada en menos de una fracción de segundo.</li>
+        <li><strong>Revertir / Deshacer (Undo Batch):</strong> ¿Te equivocaste de regla o de carpeta de origen? Simplemente aprieta el botón rojo <span class="highlight">⏪ Undo Batch</span> para forzar un regreso al pasado y retornar los archivos movidos durante el último lote hacia su origen, operando con un 100% de fiabilidad mecánica.</li>
+        <li><strong>Exclusiones Dinámicas:</strong> Escribe restricciones separadas por comas en el campo de texto (ej. <span class="highlight">borrador, personal, temp</span>) para prohibir la interacción con ciertos documentos frágiles o privados.</li>
+    </ul>
+
+    <h2>3. Panel de Métricas (Dashboard)</h2>
+    <p>Navega a <strong>Metrics Dashboard</strong> en el menú de navegación lateral para ver tu impacto global a lo largo del tiempo. Podrás ver con transparencia y un recuento analítico, en tiempo real, el flujo histórico de los miles de ficheros que el software te ha ayudado a no clasificar a mano de manera jerárquica.</p>
+
+    <h2>4. Motor de Reglas (Automata)</h2>
+    <p>¿Necesitas algo mucho más exigente como agrupar los archivos de contratos frente a archivos genéricos? En la pestaña <strong>Rules Engine</strong> puedes forzar excepciones manuales directas, creando un dictado de palabras clave para ser atadas bajo demanda a diferentes subcarpetas.</p>
+    <ul>
+        <li><strong>Ejemplo de Regla:</strong> Si Extensión es igual a <code>.pdf</code> y la palabra contenida clave es <code>factura</code> 🡆 Forzar ruta a la carpeta <code>Finanzas_Mensuales</code> en lugar de en la de 'Documentos' por defecto!</li>
+    </ul>
+
+</body>
+</html>

@@ -12,7 +12,6 @@ import requests
 import websocket
 import customtkinter as ctk
 from tkinterdnd2 import TkinterDnD
-from tkinterweb import HtmlFrame
 from PIL import Image
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
@@ -23,6 +22,7 @@ from src.agent.views.auth_view import AuthView
 from src.agent.views.home_view import HomeView
 from src.agent.views.dashboard_view import DashboardView
 from src.agent.views.rules_view import RulesView
+from src.agent.views.help_view import HelpView
 
 class EnterpriseApp(ctk.CTk, TkinterDnD.DnDWrapper):
     """Main App Orchestrator. Bootstraps AppState, views, and layout routing."""
@@ -100,13 +100,21 @@ class EnterpriseApp(ctk.CTk, TkinterDnD.DnDWrapper):
         self.btn_nav_rules = ctk.CTkButton(self.sidebar, text="  ⚙️  Rules Engine", font=ctk.CTkFont(size=14, weight="bold"), fg_color="transparent", text_color=Theme.TEXT, hover_color=Theme.BORDER, anchor="w", height=45, corner_radius=12, command=lambda: self.select_page("rules"))
         self.btn_nav_rules.grid(row=3, column=0, padx=15, pady=10, sticky="ew")
         
-        self.btn_nav_help = ctk.CTkButton(self.sidebar, text="  ❔  Documentation", font=ctk.CTkFont(size=13), fg_color="transparent", text_color=Theme.MUTED, hover_color=Theme.BORDER, anchor="w", height=45, corner_radius=12, command=self.mostrar_ayuda)
+        self.btn_nav_help = ctk.CTkButton(self.sidebar, text="  ❔  Documentation", font=ctk.CTkFont(size=13), fg_color="transparent", text_color=Theme.MUTED, hover_color=Theme.BORDER, anchor="w", height=45, corner_radius=12, command=lambda: self.select_page("help"))
         self.btn_nav_help.grid(row=5, column=0, padx=15, pady=20, sticky="sew")
 
-        # Init Views directly into the layout content zone
-        self.page_home = HomeView(self.content_frame, self.manager)
-        self.page_dash = DashboardView(self.content_frame, self.manager)
-        self.page_rules = RulesView(self.content_frame, self.manager)
+        # Init Views directly into the layout content zone with Fall-back Protection
+        try: self.page_home = HomeView(self.content_frame, self.manager)
+        except Exception as e: self.page_home = ctk.CTkLabel(self.content_frame, text=f"Error rendering Home module:\n{e}", text_color=Theme.DANGER)
+            
+        try: self.page_dash = DashboardView(self.content_frame, self.manager)
+        except Exception as e: self.page_dash = ctk.CTkLabel(self.content_frame, text=f"Error rendering Metrics module:\n{e}", text_color=Theme.DANGER)
+            
+        try: self.page_rules = RulesView(self.content_frame, self.manager)
+        except Exception as e: self.page_rules = ctk.CTkLabel(self.content_frame, text=f"Error rendering Rules Engine module:\n{e}", text_color=Theme.DANGER)
+            
+        try: self.page_help = HelpView(self.content_frame)
+        except Exception as e: self.page_help = ctk.CTkLabel(self.content_frame, text=f"Error rendering Documentation module:\n{e}", text_color=Theme.DANGER)
         
         self.select_page("home")
 
@@ -155,59 +163,22 @@ class EnterpriseApp(ctk.CTk, TkinterDnD.DnDWrapper):
         self.btn_nav_home.configure(fg_color=Theme.PRIMARY if name=="home" else "transparent")
         self.btn_nav_dash.configure(fg_color=Theme.PRIMARY if name=="dash" else "transparent")
         self.btn_nav_rules.configure(fg_color=Theme.PRIMARY if name=="rules" else "transparent")
-        
-        if hasattr(self, "help_wrapper") and self.help_wrapper.winfo_exists():
-            self.help_wrapper.destroy()
-            self.content_frame.grid(row=0, column=1, sticky="nsew")
+        self.btn_nav_help.configure(fg_color=Theme.PRIMARY if name=="help" else "transparent")
 
         self.page_home.pack_forget()
         self.page_dash.pack_forget()
         self.page_rules.pack_forget()
+        self.page_help.pack_forget()
 
         if name == "home": self.page_home.pack(fill="both", expand=True)
-        elif name == "dash": self.page_dash.actualizar(); self.page_dash.pack(fill="both", expand=True)
-        elif name == "rules": self.page_rules.actualizar(); self.page_rules.pack(fill="both", expand=True)
+        elif name == "dash":
+            if hasattr(self.page_dash, 'actualizar'): self.page_dash.actualizar()
+            self.page_dash.pack(fill="both", expand=True)
+        elif name == "rules":
+            if hasattr(self.page_rules, 'actualizar'): self.page_rules.actualizar()
+            self.page_rules.pack(fill="both", expand=True)
+        elif name == "help": self.page_help.pack(fill="both", expand=True)
 
-    def mostrar_ayuda(self):
-        """Renders the decoupled HTML documentation files into the TkinterWeb iframe."""
-        self.content_frame.grid_forget()
-        if hasattr(self, "help_wrapper") and self.help_wrapper.winfo_exists(): return
-        self.help_wrapper = ctk.CTkFrame(self, fg_color="transparent")
-        self.help_wrapper.grid(row=0, column=1, sticky="nsew", padx=40, pady=40)
-        
-        top_bar = ctk.CTkFrame(self.help_wrapper, fg_color="transparent")
-        top_bar.pack(fill="x", pady=(0, 20))
-        
-        btn_back = ctk.CTkButton(top_bar, text="← Go Back", width=100, height=36, corner_radius=8, fg_color=Theme.CARD, hover_color=Theme.BORDER, text_color=Theme.TEXT, command=self.cerrar_ayuda)
-        btn_back.pack(side="left")
-        
-        self.seg_lang = ctk.CTkSegmentedButton(top_bar, values=["Español", "English"], command=self.cambiar_idioma_ayuda, selected_color=Theme.PRIMARY, selected_hover_color=Theme.PRIMARY_HOVER, unselected_color=Theme.CARD, unselected_hover_color=Theme.BORDER)
-        self.seg_lang.pack(side="right")
-        self.seg_lang.set("Español")
-        
-        import tkinter as tk
-        self.html_container = tk.Frame(self.help_wrapper, bg=Theme.CARD, highlightbackground=Theme.BORDER, highlightthickness=1)
-        self.html_container.pack(fill="both", expand=True, pady=(0, 20))
-        
-        self.help_html = HtmlFrame(self.html_container, messages_enabled=False)
-        self.help_html.pack(fill="both", expand=True, padx=2, pady=2)
-        
-        self.cambiar_idioma_ayuda("English")
-
-    def cerrar_ayuda(self):
-        if hasattr(self, "help_wrapper") and self.help_wrapper.winfo_exists():
-            self.help_wrapper.destroy()
-        self.content_frame.grid(row=0, column=1, sticky="nsew")
-
-    def cambiar_idioma_ayuda(self, lang):
-        docs_path = os.path.join(os.path.dirname(__file__), "docs")
-        file_name = "help_en.html"
-        full_path = os.path.join(docs_path, file_name)
-        if os.path.exists(full_path):
-            with open(full_path, "r", encoding="utf-8") as f:
-                self.help_html.load_html(f.read())
-        else:
-            self.help_html.load_html("<h1>Document not found</h1>")
 
     def conectar_websocket(self):
         def run():

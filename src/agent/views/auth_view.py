@@ -2,6 +2,7 @@ import customtkinter as ctk
 from src.agent.models.theme import Theme
 from src.agent.services.api_client import APIClient
 from src.agent.models.state import AppState
+from src.agent.views.apple_components import AppleCard, AppleHeading, AppleInput, AppleButton, AppleSubText
 
 class AuthView(ctk.CTkFrame):
     """
@@ -14,7 +15,7 @@ class AuthView(ctk.CTkFrame):
         self.app_state = AppState()
         self.on_authenticated = on_authenticated
         
-        self.auth_container = ctk.CTkFrame(self, width=400, height=520, corner_radius=20, fg_color=Theme.CARD, border_width=1, border_color=Theme.BORDER)
+        self.auth_container = AppleCard(self, width=400, height=520)
         self.auth_container.pack(expand=True)
         self.auth_container.pack_propagate(False)
         self.draw_auth_form("login")
@@ -28,7 +29,7 @@ class AuthView(ctk.CTkFrame):
 
     def create_password_field(self, parent, placeholder, width=300, height=45):
         frame = ctk.CTkFrame(parent, fg_color="transparent")
-        entry = ctk.CTkEntry(frame, placeholder_text=placeholder, show="•", width=width-50, height=height, border_color=Theme.BORDER, fg_color=Theme.INPUT, text_color=Theme.TEXT)
+        entry = AppleInput(frame, placeholder_text=placeholder, width=width-50)
         entry.pack(side="left")
         
         btn_show = ctk.CTkButton(frame, text="👁", width=40, height=height, fg_color=Theme.INPUT, hover_color=Theme.BG, text_color=Theme.TEXT)
@@ -48,8 +49,8 @@ class AuthView(ctk.CTkFrame):
     def draw_auth_form(self, mode="login"):
         for widget in self.auth_container.winfo_children(): widget.destroy()
         
-        ctk.CTkLabel(self.auth_container, text="File Governance System", font=ctk.CTkFont(size=24, weight="bold"), text_color=Theme.TEXT).pack(pady=(40, 5))
-        self.lbl_msg = ctk.CTkLabel(self.auth_container, text=f"{'Login' if mode=='login' else ('Register' if mode=='register' else 'Recover your account')}", font=ctk.CTkFont(size=14), text_color=Theme.MUTED)
+        AppleHeading(self.auth_container, text="File Governance System").pack(pady=(40, 5))
+        self.lbl_msg = AppleSubText(self.auth_container, text=f"{'Login' if mode=='login' else ('Register' if mode=='register' else 'Recover your account')}", size=14)
         self.lbl_msg.pack(pady=(0, 25))
         
         if mode in ["login", "register"]:
@@ -65,36 +66,36 @@ class AuthView(ctk.CTkFrame):
             self.draw_reset_fields()
             return
             
-        self.auth_email = ctk.CTkEntry(self.auth_container, placeholder_text="Email Address", width=300, height=45, border_color=Theme.BORDER, fg_color=Theme.INPUT, text_color=Theme.TEXT)
+        self.auth_email = AppleInput(self.auth_container, placeholder_text="Email Address", width=300)
         self.auth_email.pack(pady=(20, 10))
         
         self.pwd_frame, self.auth_password = self.create_password_field(self.auth_container, "Password", width=300, height=45)
         self.pwd_frame.pack(pady=10)
         
         if mode == "login":
-            self.btn_action = ctk.CTkButton(self.auth_container, text="Enter", width=300, height=45, corner_radius=12, fg_color=Theme.PRIMARY, hover_color=Theme.PRIMARY_HOVER, font=ctk.CTkFont(size=15, weight="bold"), command=self.do_login)
+            self.btn_action = AppleButton(self.auth_container, text="Enter", width=300, command=self.do_login)
             self.btn_action.pack(pady=(25, 15))
             ctk.CTkButton(self.auth_container, text="Forgot your password?", fg_color="transparent", text_color=Theme.MUTED, hover_color=Theme.BG, command=lambda: self.draw_auth_form("reset")).pack()
         else:
-            self.btn_action = ctk.CTkButton(self.auth_container, text="Create Account", width=300, height=45, corner_radius=12, fg_color=Theme.SUCCESS, hover_color=Theme.SUCCESS_HOVER, font=ctk.CTkFont(size=15, weight="bold"), command=self.do_register)
+            self.btn_action = AppleButton(self.auth_container, text="Create Account", variant="success", width=300, command=self.do_register)
             self.btn_action.pack(pady=(25, 15))
 
     def draw_reset_fields(self):
-        self.auth_email = ctk.CTkEntry(self.auth_container, placeholder_text="Email Address", width=300, height=45, border_color=Theme.BORDER, fg_color=Theme.INPUT, text_color=Theme.TEXT)
+        self.auth_email = AppleInput(self.auth_container, placeholder_text="Email Address", width=300)
         self.auth_email.pack(pady=(15, 10))
         
-        self.btn_send_reset = ctk.CTkButton(self.auth_container, text="Send Code", width=300, height=45, corner_radius=12, fg_color=Theme.PRIMARY, hover_color=Theme.PRIMARY_HOVER, font=ctk.CTkFont(size=14, weight="bold"), command=self.do_send_reset)
+        self.btn_send_reset = AppleButton(self.auth_container, text="Send Code", width=300, command=self.do_send_reset)
         self.btn_send_reset.pack(pady=5)
         
         self.reset_box = ctk.CTkFrame(self.auth_container, fg_color="transparent")
         
-        self.reset_code = ctk.CTkEntry(self.reset_box, placeholder_text="6-digit Code", width=300, height=40, border_color=Theme.BORDER, fg_color=Theme.INPUT, text_color=Theme.TEXT)
+        self.reset_code = AppleInput(self.reset_box, placeholder_text="6-digit Code", width=300)
         self.reset_code.pack(pady=5)
         self.reset_pwd1_frame, self.reset_pwd1 = self.create_password_field(self.reset_box, "New Password", width=300, height=40)
         self.reset_pwd1_frame.pack(pady=5)
         self.reset_pwd2_frame, self.reset_pwd2 = self.create_password_field(self.reset_box, "Confirm", width=300, height=40)
         self.reset_pwd2_frame.pack(pady=5)
-        self.btn_reset_confirm = ctk.CTkButton(self.reset_box, text="Change Password", width=300, height=45, corner_radius=12, fg_color=Theme.SUCCESS, hover_color=Theme.SUCCESS_HOVER, font=ctk.CTkFont(size=14, weight="bold"), command=self.do_confirm_reset)
+        self.btn_reset_confirm = AppleButton(self.reset_box, text="Change Password", variant="success", width=300, command=self.do_confirm_reset)
         self.btn_reset_confirm.pack(pady=15)
         
         ctk.CTkButton(self.auth_container, text="Back to Login", fg_color="transparent", text_color=Theme.MUTED, hover_color=Theme.BG, command=lambda: self.draw_auth_form("login")).pack(side="bottom", pady=20)
@@ -109,9 +110,9 @@ class AuthView(ctk.CTkFrame):
                     self.show_msg(data.get("message"), "yellow")
                     self.pwd_frame.pack_forget()
                     self.btn_action.pack_forget()
-                    self.login_code = ctk.CTkEntry(self.auth_container, placeholder_text="Verification code via email", width=300, height=45, border_color=Theme.BORDER, fg_color=Theme.INPUT, text_color=Theme.TEXT)
+                    self.login_code = AppleInput(self.auth_container, placeholder_text="Verification code via email", width=300)
                     self.login_code.pack(pady=10)
-                    btn_v = ctk.CTkButton(self.auth_container, text="Verify", width=300, height=45, corner_radius=12, fg_color=Theme.SUCCESS, hover_color=Theme.SUCCESS_HOVER, font=ctk.CTkFont(size=15, weight="bold"), command=self.verify_code)
+                    btn_v = AppleButton(self.auth_container, text="Verify", variant="success", width=300, command=self.verify_code)
                     btn_v.pack(pady=15)
                 elif data.get("status") == "requires_reset":
                     self.show_msg(data.get("message"), "yellow")

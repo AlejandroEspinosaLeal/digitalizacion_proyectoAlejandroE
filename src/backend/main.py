@@ -105,8 +105,24 @@ manager = ConnectionManager()
 
 # 4. AUTHENTICATION ENDPOINTS
 @app.post("/auth/register", status_code=status.HTTP_201_CREATED)
-def register(user_data: User, db: Session = Depends(get_db)):
-    """Registers a new User generating Bcrypt hashes."""
+def register(user_data: User, db: Session = Depends(get_db)) -> dict:
+    """
+    Registers a new User generating Bcrypt hashes.
+    
+    Parameters:
+        user_data (User): The user payload schema containing email and plain password.
+        db (Session): Scalable database dependency injection context.
+        
+    Returns:
+        dict: Confirmation entity harboring user creation string and integer unique ID.
+        
+    Raises:
+        HTTPException (400): If the submitted email address is already bound to another profile.
+        
+    Example:
+        >>> POST /auth/register {"email": "hello@world.com", "hashed_password": "123"}
+        {"message": "User successfully created", "id": 1}
+    """
     # Validate unique email
     existing = db.exec(select(User).where(User.email == user_data.email)).first()
     if existing:
@@ -156,7 +172,25 @@ def send_verification_email(to_email: str, code: str, is_recovery: bool = False)
         logger.error(f"Error sending SMTP email to {to_email}: {e}")
 
 @app.post("/auth/token")
-def login(user_credentials: User, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+def login(user_credentials: User, background_tasks: BackgroundTasks, db: Session = Depends(get_db)) -> dict:
+    """
+    Evaluates hashed authentication signatures and triggers a 2FA Verification via SMTP.
+    
+    Parameters:
+        user_credentials (User): The user payload schema containing plain login attributes.
+        background_tasks (BackgroundTasks): Native FastAPI asynchronous thread orchestrator for Email sending.
+        db (Session): Scalable database dependency injection context.
+        
+    Returns:
+        dict: Standardized API Object informing the front-end that MFA stands active.
+        
+    Raises:
+        HTTPException (401): If plain credentials violate Bcrypt hashes checks.
+        
+    Example:
+        >>> POST /auth/token {"email": "hello@world.com", "hashed_password": "123"}
+        {"status": "pending_verification", "message": "Verification code sent to email"}
+    """
     user = db.exec(select(User).where(User.email == user_credentials.email)).first()
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
