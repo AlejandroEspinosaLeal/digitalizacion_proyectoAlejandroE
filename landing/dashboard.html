@@ -185,17 +185,14 @@
 
   <!-- PIE CHART -->
   <div class="table-container" style="margin-bottom: 40px;">
-    <div class="activity-panel" style="padding: 40px 32px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden;">
+    <div class="activity-panel" style="padding: 40px 32px; display: flex; flex-direction: column; align-items: center;">
       
-      <!-- Subtle background glow for aesthetics -->
-      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0;"></div>
-      
-      <div style="text-align: center; margin-bottom: 32px; z-index: 1;">
+      <div style="text-align: center; margin-bottom: 32px;">
         <h2 style="font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;" data-i18n="dash.chart.title">Distribution by Extension</h2>
         <p style="color: var(--text-secondary); font-size: 0.9rem;" data-i18n="dash.chart.subtitle">Visual breakdown of your sorted files</p>
       </div>
       
-      <div style="width: 100%; max-width: 420px; z-index: 1; filter: drop-shadow(0 16px 32px rgba(0,0,0,0.4));">
+      <div style="width: 100%; max-width: 420px;">
         <canvas id="extensionChart"></canvas>
       </div>
     </div>
