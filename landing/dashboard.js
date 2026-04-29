@@ -190,15 +190,17 @@ async function loadActivityData(user) {
       }
 
       return `<tr>
-        <td class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 font-medium flex items-center gap-3">
-          ${icon}
-          ${ev.filename || 'Unknown File'}
+        <td class="px-4 sm:px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 font-medium">
+          <div class="flex items-center gap-2 sm:gap-3 overflow-hidden">
+            <span class="flex-shrink-0">${icon}</span>
+            <span class="truncate" title="${ev.filename || 'Unknown File'}">${ev.filename || 'Unknown File'}</span>
+          </div>
         </td>
-        <td class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800">
-          <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-zinc-100 dark:bg-zinc-800/50 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">${cat}</span>
+        <td class="px-4 sm:px-6 py-4 border-t border-zinc-100 dark:border-zinc-800">
+          <span class="px-2.5 py-1 text-[10px] sm:text-xs font-semibold rounded-full bg-zinc-100 dark:bg-zinc-800/50 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 truncate block w-max max-w-full" title="${cat}">${cat}</span>
         </td>
-        <td class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 font-mono text-xs max-w-[200px] sm:max-w-xs truncate" title="${ev.dest_path || 'Unknown'}">${ev.dest_path || 'Unknown'}</td>
-        <td class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 text-right text-xs whitespace-nowrap">${dateString}</td>
+        <td class="px-4 sm:px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 font-mono text-[10px] sm:text-xs truncate" title="${ev.dest_path || 'Unknown'}">${ev.dest_path || 'Unknown'}</td>
+        <td class="px-4 sm:px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 text-right text-[10px] sm:text-xs truncate" title="${dateString}">${dateString}</td>
       </tr>`;
     }).join("");
 
