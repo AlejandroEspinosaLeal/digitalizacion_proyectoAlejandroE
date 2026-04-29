@@ -170,7 +170,7 @@ async function loadActivityData(user) {
           <span style="margin-right:8px">${icon}</span> ${ev.filename || 'Unknown File'}
         </td>
         <td><span class="fc-tag" style="background:rgba(255,255,255,0.05); color:var(--text-secondary)">${cat}</span></td>
-        <td style="color:var(--text-secondary); font-family: monospace; font-size: 0.85em;">${ev.dest_path || 'Unknown'}</td>
+        <td style="color:var(--text-secondary); font-family: monospace; font-size: 0.85em; word-break: break-all; max-width: 250px; white-space: normal;">${ev.dest_path || 'Unknown'}</td>
         <td style="color:var(--text-secondary)">${dateString}</td>
       </tr>`;
     }).join("");
