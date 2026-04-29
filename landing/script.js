@@ -106,11 +106,18 @@ async function checkAuth() {
 
 // File Sorting Simulation
 function simulateSort() {
+  const svgs = {
+    img: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>`,
+    doc: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>`,
+    vid: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500"><polygon points="23 7 16 12 23 17 23 7"/><rect width="15" height="14" x="1" y="5" rx="2" ry="2"/></svg>`,
+    code: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-500"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`
+  };
+
   const files = [
-    { icon: '🖼️', name: 'image_' + Math.floor(Math.random() * 100) + '.png', tag: 'Images', cls: 'tag-img' },
-    { icon: '📄', name: 'report_' + Math.floor(Math.random() * 100) + '.pdf', tag: 'Docs', cls: 'tag-doc' },
-    { icon: '🎬', name: 'clip_' + Math.floor(Math.random() * 100) + '.mp4', tag: 'Video', cls: 'tag-vid' },
-    { icon: '💻', name: 'script_' + Math.floor(Math.random() * 100) + '.js', tag: 'Code', cls: 'tag-code' }
+    { icon: svgs.img, name: 'image_' + Math.floor(Math.random() * 100) + '.png', tag: 'Images', cls: 'bg-blue-50 text-blue-700 ring-1 ring-blue-700/10' },
+    { icon: svgs.doc, name: 'report_' + Math.floor(Math.random() * 100) + '.pdf', tag: 'Docs', cls: 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-700/10' },
+    { icon: svgs.vid, name: 'clip_' + Math.floor(Math.random() * 100) + '.mp4', tag: 'Video', cls: 'bg-amber-50 text-amber-700 ring-1 ring-amber-700/10' },
+    { icon: svgs.code, name: 'script_' + Math.floor(Math.random() * 100) + '.js', tag: 'Code', cls: 'bg-purple-50 text-purple-700 ring-1 ring-purple-700/10' }
   ];
   const f = files[Math.floor(Math.random() * files.length)];
 
@@ -118,13 +125,15 @@ function simulateSort() {
   if (!container) return;
 
   const card = document.createElement('div');
-  card.className = 'file-card';
+  card.className = 'flex items-center justify-between p-3 bg-white border border-zinc-100 rounded-xl shadow-sm transition-all duration-300 transform origin-left animate-[slideIn_0.3s_ease-out]';
   card.innerHTML = `
-    <div class="fc-left">
-      <span class="fc-icon">${f.icon}</span>
-      <span class="fc-name">${f.name}</span>
+    <div class="flex items-center gap-3">
+      <div class="flex items-center justify-center p-1.5 rounded-md bg-zinc-50 border border-zinc-100">
+        ${f.icon}
+      </div>
+      <span class="text-sm font-medium text-zinc-700">${f.name}</span>
     </div>
-    <span class="fc-tag ${f.cls}" data-i18n="demo.rules.${f.tag.toLowerCase()}">
+    <span class="text-[11px] font-bold px-2.5 py-1 rounded-full ${f.cls}" data-i18n="demo.rules.${f.tag.toLowerCase()}">
       ${getTranslation(`demo.rules.${f.tag.toLowerCase()}`) || f.tag}
     </span>
   `;
@@ -136,6 +145,11 @@ function simulateSort() {
 
   showToast(`${getTranslation('toast.sort_sim')} ${f.tag}`, "info");
 }
+
+// Add a simple keyframe for slideIn
+const styleObj = document.createElement('style');
+styleObj.textContent = `@keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }`;
+document.head.appendChild(styleObj);
 
 window.addEventListener("DOMContentLoaded", () => {
   checkAuth();
