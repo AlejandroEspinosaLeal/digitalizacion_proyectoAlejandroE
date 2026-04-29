@@ -56,7 +56,7 @@ def main():
     env["PYTHONPATH"] = os.getcwd()
     
     print("--------------------------------------------------")
-    print("🚀 Booting FastAPI Backend Server...")
+    print("[INFO] Booting FastAPI Backend Server...")
     # Hide the backend uvicorn console window via 0x08000000 creation flag so it stays stealthy
     p1 = subprocess.Popen([sys.executable, "-m", "uvicorn", "src.backend.main:app", "--port", "8000"],
                           env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=0x08000000)
@@ -64,7 +64,7 @@ def main():
     # Wait for socket to properly open before agent initialization
     time.sleep(2)
     
-    print("🚀 Booting File Governance System GUI...")
+    print("[INFO] Booting File Governance System GUI...")
     # Boot the frontend login screen (Native desktop application)
     p2 = subprocess.Popen([sys.executable, "src/agent/main_enterprise.py", "--backend-pid", str(p1.pid)],
                           env=env, creationflags=0x08000000)
