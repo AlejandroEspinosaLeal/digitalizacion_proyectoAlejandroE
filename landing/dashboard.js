@@ -128,7 +128,7 @@ function renderChart(counts, total) {
       },
       plugins: {
         legend: {
-          position: 'bottom',
+          position: 'right',
           labels: { 
             color: isDarkChart ? '#a1a1aa' : '#52525b',
             padding: 20,
