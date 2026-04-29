@@ -86,7 +86,8 @@ function renderChart(counts, total) {
     'rgba(20, 184, 166, 0.85)'  // teal
   ];
   
-  const borderColors = backgroundColors.map(c => c.replace('0.85', '1'));
+  // Usar el color de fondo del panel para los bordes del pastel
+  const borderColors = Array(data.length).fill('#13151e');
 
   for (const [ext, count] of Object.entries(counts)) {
     const percentage = ((count / total) * 100).toFixed(1);
@@ -126,13 +127,6 @@ function renderChart(counts, total) {
             usePointStyle: true,
             pointStyle: 'circle'
           }
-        },
-        title: {
-          display: true,
-          text: 'File Extensions',
-          color: '#f8fafc', // text-primary
-          font: { size: 16, weight: 600 },
-          padding: { bottom: 20 }
         }
       }
     }
@@ -221,7 +215,8 @@ function injectDashboardTranslations() {
     "dash.table.path": "Destination Path",
     "dash.table.time": "Timestamp",
     "dash.table.loading": "Loading records...",
-    "dash.table.empty": "No file movement events detected yet."
+    "dash.table.empty": "No file movement events detected yet.",
+    "dash.chart.title": "Distribution by Extension"
   };
 
   translations.es = {
@@ -236,7 +231,8 @@ function injectDashboardTranslations() {
     "dash.table.path": "Ruta de Destino",
     "dash.table.time": "Fecha / Hora",
     "dash.table.loading": "Cargando registros...",
-    "dash.table.empty": "Aún no se han detectado movimientos de archivos."
+    "dash.table.empty": "Aún no se han detectado movimientos de archivos.",
+    "dash.chart.title": "Distribución por Extensión"
   };
 
   updateTranslations();
