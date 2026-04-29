@@ -76,9 +76,17 @@ function renderChart(counts, total) {
   const labels = [];
   const data = [];
   const backgroundColors = [
-    '#4e79a7', '#f28e2c', '#e15759', '#76b7b2', '#59a14f', 
-    '#edc949', '#af7aa1', '#ff9da7', '#9c755f', '#bab0ab'
+    'rgba(59, 130, 246, 0.85)', // accent-primary
+    'rgba(16, 185, 129, 0.85)', // success
+    'rgba(245, 158, 11, 0.85)', // warning
+    'rgba(139, 92, 246, 0.85)', // info
+    'rgba(239, 68, 68, 0.85)',  // danger
+    'rgba(14, 165, 233, 0.85)', // sky
+    'rgba(244, 63, 94, 0.85)',  // rose
+    'rgba(20, 184, 166, 0.85)'  // teal
   ];
+  
+  const borderColors = backgroundColors.map(c => c.replace('0.85', '1'));
 
   for (const [ext, count] of Object.entries(counts)) {
     const percentage = ((count / total) * 100).toFixed(1);
@@ -90,28 +98,41 @@ function renderChart(counts, total) {
     extensionChartInstance.destroy();
   }
 
+  // Use global defaults for better aesthetic
+  Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
+  Chart.defaults.color = '#94a3b8'; // text-secondary
+
   extensionChartInstance = new Chart(ctx, {
-    type: 'pie',
+    type: 'doughnut', // doughnut looks more modern
     data: {
       labels: labels,
       datasets: [{
         data: data,
         backgroundColor: backgroundColors.slice(0, data.length),
-        borderWidth: 1,
-        borderColor: '#1e1e1e'
+        borderColor: borderColors.slice(0, data.length),
+        borderWidth: 2,
+        hoverOffset: 4
       }]
     },
     options: {
       responsive: true,
+      cutout: '65%', // makes it a thin ring
       plugins: {
         legend: {
-          position: 'right',
-          labels: { color: '#a0a0a0' }
+          position: 'bottom',
+          labels: { 
+            color: '#94a3b8',
+            padding: 20,
+            usePointStyle: true,
+            pointStyle: 'circle'
+          }
         },
         title: {
           display: true,
           text: 'File Extensions',
-          color: '#ffffff'
+          color: '#f8fafc', // text-primary
+          font: { size: 16, weight: 600 },
+          padding: { bottom: 20 }
         }
       }
     }
