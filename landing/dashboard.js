@@ -46,7 +46,7 @@ function redirectToIndex() {
 function getDerivedCategory(destPath) {
   if (!destPath) return 'Other';
   const parts = destPath.replace(/\\/g, '/').replace(/\/$/, '').split('/');
-  return parts.length ? parts[parts.length - 1] : 'Other';
+  return parts.length > 1 ? parts[parts.length - 2] : 'Other';
 }
 
 function iconForCat(cat) {
