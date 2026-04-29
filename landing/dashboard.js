@@ -24,7 +24,8 @@ async function initDashboard() {
   }
 
   // Display user email
-  document.getElementById("user-email").textContent = session.user.email;
+  const userEmailEl = document.getElementById("user-email");
+  if (userEmailEl) userEmailEl.textContent = session.user.email;
 
   // Bind logout
   document.getElementById("logout-btn").addEventListener("click", async () => {
@@ -50,11 +51,12 @@ function getDerivedCategory(destPath) {
 }
 
 function iconForCat(cat) {
-  if (/image/i.test(cat)) return '🖼️';
-  if (/doc/i.test(cat)) return '📄';
-  if (/code|script/i.test(cat)) return '💻';
-  if (/video/i.test(cat)) return '🎬';
-  return '📦';
+  const c = 'w-4 h-4 opacity-70';
+  if (/image/i.test(cat)) return `<svg class="text-blue-500 ${c}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>`;
+  if (/doc/i.test(cat)) return `<svg class="text-emerald-500 ${c}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>`;
+  if (/code|script/i.test(cat)) return `<svg class="text-purple-500 ${c}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`;
+  if (/video/i.test(cat)) return `<svg class="text-amber-500 ${c}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect width="15" height="14" x="1" y="5" rx="2" ry="2"/></svg>`;
+  return `<svg class="text-zinc-500 ${c}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" x2="12" y1="22.08" y2="12"/></svg>`;
 }
 
 function getExtension(filename) {
@@ -86,8 +88,9 @@ function renderChart(counts, total) {
     '#14b8a6'  // teal
   ];
   
-  // Usar el color de fondo del panel para los bordes del pastel
-  const borderColors = Array(backgroundColors.length).fill('#13151e');
+  // Adaptable al modo oscuro
+  const isDark = document.documentElement.classList.contains('dark');
+  const borderColors = Array(backgroundColors.length).fill(isDark ? '#18181b' : '#ffffff');
 
   for (const [ext, count] of Object.entries(counts)) {
     const percentage = ((count / total) * 100).toFixed(1);
@@ -100,8 +103,9 @@ function renderChart(counts, total) {
   }
 
   // Use global defaults for better aesthetic
+  const isDarkChart = document.documentElement.classList.contains('dark');
   Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
-  Chart.defaults.color = '#94a3b8'; // text-secondary
+  Chart.defaults.color = isDarkChart ? '#a1a1aa' : '#52525b';
 
   extensionChartInstance = new Chart(ctx, {
     type: 'doughnut', // doughnut looks more modern
@@ -156,8 +160,8 @@ async function loadActivityData(user) {
 
     // fallback mock data if completely empty DB architecture
     if (events.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4" class="empty-msg" data-i18n="dash.table.empty">No file movement events detected yet.</td></tr>`;
-      document.getElementById("kpi-total").textContent = "0";
+      tbody.innerHTML = `<tr><td colspan="4" class="px-6 py-8 text-center text-zinc-500 dark:text-zinc-400" data-i18n="dash.table.empty">No file movement events detected yet.</td></tr>`;
+      document.getElementById("kpi-files").textContent = "0";
       return;
     }
 
@@ -183,23 +187,26 @@ async function loadActivityData(user) {
       }
 
       return `<tr>
-        <td style="color:var(--text-primary); font-weight: 500;">
-          <span style="margin-right:8px">${icon}</span> ${ev.filename || 'Unknown File'}
+        <td class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 font-medium flex items-center gap-3">
+          ${icon}
+          ${ev.filename || 'Unknown File'}
         </td>
-        <td><span class="fc-tag" style="background:rgba(255,255,255,0.05); color:var(--text-secondary)">${cat}</span></td>
-        <td style="color:var(--text-secondary); font-family: monospace; font-size: 0.85em; word-break: break-all; max-width: 250px; white-space: normal;">${ev.dest_path || 'Unknown'}</td>
-        <td style="color:var(--text-secondary)">${dateString}</td>
+        <td class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800">
+          <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-zinc-100 dark:bg-zinc-800/50 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">${cat}</span>
+        </td>
+        <td class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 font-mono text-xs max-w-[200px] sm:max-w-xs truncate" title="${ev.dest_path || 'Unknown'}">${ev.dest_path || 'Unknown'}</td>
+        <td class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 text-right text-xs whitespace-nowrap">${dateString}</td>
       </tr>`;
     }).join("");
 
-    document.getElementById("kpi-total").textContent = events.length;
+    document.getElementById("kpi-files").textContent = events.length;
     document.getElementById("kpi-cats").textContent = categoriesUsed.size;
 
     renderChart(extensionCounts, totalFilesForChart);
 
   } catch (error) {
     console.error("Dashboard DB fetch error:", error);
-    tbody.innerHTML = `<tr><td colspan="4" class="empty-msg" style="color:var(--danger)">Error loading data.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="4" class="px-6 py-8 text-center text-red-500">Error loading data.</td></tr>`;
   }
 }
 
