@@ -114,10 +114,10 @@ function simulateSort() {
   };
 
   const files = [
-    { icon: svgs.img, name: 'image_' + Math.floor(Math.random() * 100) + '.png', tag: 'Images', cls: 'bg-blue-50 text-blue-700 ring-1 ring-blue-700/10' },
-    { icon: svgs.doc, name: 'report_' + Math.floor(Math.random() * 100) + '.pdf', tag: 'Docs', cls: 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-700/10' },
-    { icon: svgs.vid, name: 'clip_' + Math.floor(Math.random() * 100) + '.mp4', tag: 'Video', cls: 'bg-amber-50 text-amber-700 ring-1 ring-amber-700/10' },
-    { icon: svgs.code, name: 'script_' + Math.floor(Math.random() * 100) + '.js', tag: 'Code', cls: 'bg-purple-50 text-purple-700 ring-1 ring-purple-700/10' }
+    { icon: svgs.img, name: 'image_' + Math.floor(Math.random() * 100) + '.png', tag: 'Images', cls: 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 ring-1 ring-blue-700/10 dark:ring-blue-400/20' },
+    { icon: svgs.doc, name: 'report_' + Math.floor(Math.random() * 100) + '.pdf', tag: 'Docs', cls: 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 ring-1 ring-emerald-700/10 dark:ring-emerald-400/20' },
+    { icon: svgs.vid, name: 'clip_' + Math.floor(Math.random() * 100) + '.mp4', tag: 'Video', cls: 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 ring-1 ring-amber-700/10 dark:ring-amber-400/20' },
+    { icon: svgs.code, name: 'script_' + Math.floor(Math.random() * 100) + '.js', tag: 'Code', cls: 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 ring-1 ring-purple-700/10 dark:ring-purple-400/20' }
   ];
   const f = files[Math.floor(Math.random() * files.length)];
 
@@ -125,13 +125,13 @@ function simulateSort() {
   if (!container) return;
 
   const card = document.createElement('div');
-  card.className = 'flex items-center justify-between p-3 bg-white border border-zinc-100 rounded-xl shadow-sm transition-all duration-300 transform origin-left animate-[slideIn_0.3s_ease-out]';
+  card.className = 'flex items-center justify-between p-3 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-sm transition-all duration-300 transform origin-left animate-[slideIn_0.3s_ease-out]';
   card.innerHTML = `
     <div class="flex items-center gap-3">
-      <div class="flex items-center justify-center p-1.5 rounded-md bg-zinc-50 border border-zinc-100">
+      <div class="flex items-center justify-center p-1.5 rounded-md bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700">
         ${f.icon}
       </div>
-      <span class="text-sm font-medium text-zinc-700">${f.name}</span>
+      <span class="text-sm font-medium text-zinc-700 dark:text-zinc-200">${f.name}</span>
     </div>
     <span class="text-[11px] font-bold px-2.5 py-1 rounded-full ${f.cls}" data-i18n="demo.rules.${f.tag.toLowerCase()}">
       ${getTranslation(`demo.rules.${f.tag.toLowerCase()}`) || f.tag}
