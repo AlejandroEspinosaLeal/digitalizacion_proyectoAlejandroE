@@ -76,18 +76,18 @@ function renderChart(counts, total) {
   const labels = [];
   const data = [];
   const backgroundColors = [
-    'rgba(59, 130, 246, 0.85)', // accent-primary
-    'rgba(16, 185, 129, 0.85)', // success
-    'rgba(245, 158, 11, 0.85)', // warning
-    'rgba(139, 92, 246, 0.85)', // info
-    'rgba(239, 68, 68, 0.85)',  // danger
-    'rgba(14, 165, 233, 0.85)', // sky
-    'rgba(244, 63, 94, 0.85)',  // rose
-    'rgba(20, 184, 166, 0.85)'  // teal
+    '#3b82f6', // accent-primary
+    '#10b981', // success
+    '#f59e0b', // warning
+    '#8b5cf6', // info
+    '#ef4444', // danger
+    '#0ea5e9', // sky
+    '#f43f5e', // rose
+    '#14b8a6'  // teal
   ];
   
   // Usar el color de fondo del panel para los bordes del pastel
-  const borderColors = Array(data.length).fill('#13151e');
+  const borderColors = Array(backgroundColors.length).fill('#13151e');
 
   for (const [ext, count] of Object.entries(counts)) {
     const percentage = ((count / total) * 100).toFixed(1);
@@ -111,8 +111,9 @@ function renderChart(counts, total) {
         data: data,
         backgroundColor: backgroundColors.slice(0, data.length),
         borderColor: borderColors.slice(0, data.length),
-        borderWidth: 2,
-        hoverOffset: 4
+        borderWidth: 4,
+        borderRadius: 4,
+        hoverOffset: 8
       }]
     },
     options: {
@@ -123,9 +124,10 @@ function renderChart(counts, total) {
           position: 'bottom',
           labels: { 
             color: '#94a3b8',
-            padding: 20,
+            padding: 24,
             usePointStyle: true,
-            pointStyle: 'circle'
+            pointStyle: 'circle',
+            font: { size: 13 }
           }
         }
       }
@@ -216,7 +218,8 @@ function injectDashboardTranslations() {
     "dash.table.time": "Timestamp",
     "dash.table.loading": "Loading records...",
     "dash.table.empty": "No file movement events detected yet.",
-    "dash.chart.title": "Distribution by Extension"
+    "dash.chart.title": "Distribution by Extension",
+    "dash.chart.subtitle": "Visual breakdown of your sorted files"
   };
 
   translations.es = {
@@ -232,7 +235,8 @@ function injectDashboardTranslations() {
     "dash.table.time": "Fecha / Hora",
     "dash.table.loading": "Cargando registros...",
     "dash.table.empty": "Aún no se han detectado movimientos de archivos.",
-    "dash.chart.title": "Distribución por Extensión"
+    "dash.chart.title": "Distribución por Extensión",
+    "dash.chart.subtitle": "Desglose visual de los archivos organizados"
   };
 
   updateTranslations();
